@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/07 16:29:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/08 17:56:51 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,22 @@
 #include "gnl/get_next_line.h"
 #include "ft_printf/ft_printf.h"
 
-typedef struct 		s_stack
+typedef struct 		s_elem
 {
 	int 			nb;
-	struct s_stack *next;
+	struct s_elem *next;
+}					t_elem;
+
+typedef struct		s_stack
+{
+	int				size;
+	struct s_elem	*first;
 }					t_stack;
 
 int					ft_check_arg(char **argv); 
+t_stack				*ft_create_stack(void);
+void				ft_add_up(t_stack *pile, int n);
+void				ft_swap(t_stack *pile);
+int					ft_del_elem(t_stack *pile);
 
 #endif
