@@ -1,42 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_add_up.c                                        :+:      :+:    :+:   */
+/*   ft_list_print.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/08 16:53:12 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/08 17:56:09 by dberger          ###   ########.fr       */
+/*   Created: 2019/08/09 15:43:55 by dberger           #+#    #+#             */
+/*   Updated: 2019/08/09 15:45:58 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_elem		*ft_create_elem(int n)
+void		ft_list_print(t_stack *list)
 {
-	t_elem *new;
+	t_elem	*link;
 
-	if (!(new = (t_elem *)malloc(sizeof(*new))))
-		return (NULL);
-	new->nb = n;
-	new->next = NULL;
-	return (new);
-}
-
-void		ft_add_up(t_stack *pile, int n)
-{
-	t_elem	*new;
-
-	new = ft_create_elem(n);
-	if (!pile->first)
+	link = list->first;
+	while (link)
 	{
-		pile->first = new;
-		pile->size = pile->size + 1;
+		ft_printf("	%d\n", link->nb);
+		link = link->next;
 	}
-	else
-	{
-		new->next = pile->first;
-		pile->first = new;
-		pile->size = pile->size + 1;
-	}
+	link = list->first;
 }
