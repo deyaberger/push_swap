@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_del_elem.c                                      :+:      :+:    :+:   */
+/*   ft_push.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/08 16:06:32 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/09 14:27:20 by dberger          ###   ########.fr       */
+/*   Created: 2019/08/09 11:54:56 by dberger           #+#    #+#             */
+/*   Updated: 2019/08/09 15:10:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_del_elem(t_stack *pile)
+t_elem		*ft_create_elem(int n)
 {
-	t_elem	*del;
-	int		n;
+	t_elem *new;
 
-	del = pile->first;
-	n = del->nb;
-	pile->first = del->next;
-	pile->size = pile->size - 1;
-	free (del);
-	return (n);
+	if (!(new = (t_elem *)malloc(sizeof(*new))))
+		return (NULL);
+	new->nb = n;
+	new->next = NULL;
+	return (new);
+}
+
+void		ft_push(t_stack *pile, int n)
+{
+	t_elem	*new;
+
+	new = ft_create_elem(n);
+	if (new->nb > pile->max)
+		pile->max = new->nb;
+	if (new->nb < pile->min)
+		pile->min = new->nb;
+	pile->size = pile->size + 1;
+	if (pile->first)
+		new->next = pile->first;
+	pile->first = new;
 }
