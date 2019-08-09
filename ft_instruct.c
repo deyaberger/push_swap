@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/09 16:19:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/09 16:25:26 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ void	ft_read_rot(char *line, t_stack *a, t_stack *b)
 
 int		ft_instruct(t_stack *a, t_stack *b)
 {
-	int 	fd;
-	char 	*line;
+	int		fd;
+	char	*line;
 
 	fd = 0;
 	ft_printf("a = \n");
@@ -75,7 +75,12 @@ int		ft_instruct(t_stack *a, t_stack *b)
 	ft_list_print(b);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (ft_strcmp(line, "sa") && ft_strcmp(line, "sb") && ft_strcmp(line, "ss") && ft_strcmp(line, "pa") && ft_strcmp(line, "pb") && ft_strcmp(line, "ra") && ft_strcmp(line, "rb") && ft_strcmp(line, "rr") && ft_strcmp(line, "rra") && ft_strcmp(line, "rrb") && ft_strcmp(line, "rrr"))
+		if (ft_strcmp(line, "sa") && ft_strcmp(line, "sb")
+			&& ft_strcmp(line, "ss") && ft_strcmp(line, "pa")
+			&& ft_strcmp(line, "pb") && ft_strcmp(line, "ra")
+			&& ft_strcmp(line, "rb") && ft_strcmp(line, "rr")
+			&& ft_strcmp(line, "rra") && ft_strcmp(line, "rrb")
+			&& ft_strcmp(line, "rrr"))
 			return (0);
 		if (line[0] == 's')
 			ft_read_swap(line, a, b);
@@ -87,7 +92,7 @@ int		ft_instruct(t_stack *a, t_stack *b)
 		ft_list_print(a);
 		ft_printf("b = \n");
 		ft_list_print(b);
-		free (line);
+		free(line);
 	}
 	return (1);
 }
