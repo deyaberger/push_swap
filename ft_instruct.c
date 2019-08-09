@@ -6,79 +6,61 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/09 15:35:15 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/09 16:19:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		ft_read_swap(char *line, t_stack *a, t_stack *b)
+void	ft_read_swap(char *line, t_stack *a, t_stack *b)
 {
-	if ((line[1] != 'a' && line[1] != 'b' && line[1] != 's')
-			|| (line[2] != '\n' && line[2] != '\0'))
-		return (0);
-	if (line[1] == 'a')
+	if (!ft_strcmp(line, "sa"))
 		ft_swap(a);
-	if (line[1] == 'b')
+	if (!ft_strcmp(line, "sb"))
 		ft_swap(b);
-	if (line[1] == 's')
+	if (!ft_strcmp(line, "ss"))
 	{
 		ft_swap(a);
 		ft_swap(b);
 	}
-	return (1);
 }
 
-int		ft_read_push(char *line, t_stack *a, t_stack *b)
+void	ft_read_push(char *line, t_stack *a, t_stack *b)
 {
 	int		n;
 
-	if ((line[1] != 'a' && line[1] != 'b')
-			|| (line[2] != '\n' && line[2] != '\0'))
-		return (0);
-	if (line[1] == 'a' && b->first)
+	if (!ft_strcmp(line, "pa") && b->first)
 	{
 		n = ft_del_elem(b);
-		
 		ft_push(a, n);
 	}
-	if (line[1] == 'b' && a->first)
+	if (!ft_strcmp(line, "pb") && a->first)
 	{
 		n = ft_del_elem(a);
 		ft_push(b, n);
 	}
-	return (1);
 }
 
-int		ft_read_rot(char *line, t_stack *a, t_stack *b)
+void	ft_read_rot(char *line, t_stack *a, t_stack *b)
 {
-	if (line[1] != 'a' && line[1] != 'b' && line[1] != 'r')
-		return (0);
-	if ((line[1] == 'a' || line[1] == 'b') && line[2])
-		return (0);
-	if (line[1] == 'a')
+	if (!ft_strcmp(line, "ra"))
 		ft_rotate(a, 1);
-	if (line[1] == 'b')
+	if (!ft_strcmp(line, "rb"))
 		ft_rotate(b, 1);
-	if (line[1] == 'r' && !line[2])
+	if (!ft_strcmp(line, "rr"))
 	{
 		ft_rotate(a, 1);
 		ft_rotate(b, 1);
 	}
-	if ((line[1] == 'r' && line[2] && line[3])
-		|| (line[1] == 'r' && line[2] && line[2] != 'a'
-		&& line[2] != 'b' && line[2] != 'r'))
-		return (0);
-	if (line[1] == 'r' && line[2] == 'a')
+	if (!ft_strcmp(line, "rra"))
 		ft_rotate(a, 2);
-	if (line[1] == 'r' && line[2] == 'b')
+	if (!ft_strcmp(line, "rrb"))
 		ft_rotate(b, 2);
-	if (line[1] == 'r' && line[2] == 'r')
+	if (!ft_strcmp(line, "rrr"))
 	{
 		ft_rotate(a, 2);
 		ft_rotate(b, 2);
 	}
-	return (1);
 }
 
 int		ft_instruct(t_stack *a, t_stack *b)
@@ -87,19 +69,24 @@ int		ft_instruct(t_stack *a, t_stack *b)
 	char 	*line;
 
 	fd = 0;
+	ft_printf("a = \n");
+	ft_list_print(a);
+	ft_printf("b = \n");
+	ft_list_print(b);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (line[0] != 's' && line[0] != 'p' && line[0] != 'r')
+		if (ft_strcmp(line, "sa") && ft_strcmp(line, "sb") && ft_strcmp(line, "ss") && ft_strcmp(line, "pa") && ft_strcmp(line, "pb") && ft_strcmp(line, "ra") && ft_strcmp(line, "rb") && ft_strcmp(line, "rr") && ft_strcmp(line, "rra") && ft_strcmp(line, "rrb") && ft_strcmp(line, "rrr"))
 			return (0);
 		if (line[0] == 's')
-			if (!line[1] || !(ft_read_swap(line, a, b)))
-				return (0);
+			ft_read_swap(line, a, b);
 		if (line[0] == 'p')
-			if (!line[1] || !(ft_read_push(line, a, b)))
-				return (0);
+			ft_read_push(line, a, b);
 		if (line[0] == 'r')
-			if (!line[1] || !(ft_read_rot(line, a, b)))
-				return (0);
+			ft_read_rot(line, a, b);
+		ft_printf("a = \n");
+		ft_list_print(a);
+		ft_printf("b = \n");
+		ft_list_print(b);
 		free (line);
 	}
 	return (1);
