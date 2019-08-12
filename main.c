@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:30:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/09 15:39:04 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/12 13:36:05 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,9 @@ int		main(int argc, char **argv)
 		ft_printf("OK\n");
 	if (!(ft_instruct(a, b)))
 		write (2, "Error\n", 6);
+	if (!(ft_stack_order(a, b)))
+		write (2, "Error dans ordre\n", 17);
+	else
+		write (2, "OK\n", 3);
 	return (0);
 }
