@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:30:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/21 14:28:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/26 10:48:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,6 @@ int		main(int argc, char **argv)
 	ft_list_print(a, 1);
 	ft_printf("b =\n");
 	ft_list_print(b, 1);
-	ft_printf("a->size = %d\n", a->size);
-	ft_printf("a->min = %d\n", a->min);
-	ft_printf("a->max3 = %d\n", a->max3);
-	ft_printf("a->max2 = %d\n", a->max2);
-	ft_printf("a->max = %d\n\n", a->max);
-	ft_send_instruct(a, b);
+	ft_arrange(a, b, argc);
 	return (0);
 }

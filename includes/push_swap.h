@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/21 15:55:08 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/26 11:15:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct		s_elem
 {
 	int				nb;
+	int				rank;
 	struct s_elem	*next;
 }					t_elem;
 
@@ -31,6 +32,7 @@ typedef struct		s_stack
 	int				max2;
 	int				max3;
 	struct s_elem	*first;
+	struct s_elem	*last;
 }					t_stack;
 
 typedef struct		s_instr
@@ -41,6 +43,7 @@ typedef struct		s_instr
 	int				rra;
 	int				rrb;
 	int				rrr;
+	int				total;
 }					t_instr;
 
 int					ft_check_arg(char **argv);
@@ -52,6 +55,6 @@ int					ft_rotate(t_stack *pile, int mode);
 int					ft_del_elem(t_stack *pile);
 int					ft_instruct(t_stack *a, t_stack *b);
 int					ft_stack_order(t_stack *a, t_stack *b);
-int					ft_send_instruct(t_stack *a, t_stack *b);
+int					ft_arrange(t_stack *a, t_stack *b, int argc);
 
 #endif
