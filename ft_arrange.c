@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 10:48:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/26 15:56:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/26 17:45:15 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,13 @@ t_instr		*ft_count_rb(t_stack *b, t_instr *list, int nb)
 
 	comp = b->first;
 	last = b->last;
-	if (nb == 4)
-		ft_printf("/////////////comp->nb = %d\n", comp->nb);
 	if (nb < comp->nb)
 	{
-		ft_printf("nb de A =%d, nb de B=%d\n", nb, comp->nb);
 		while (nb < comp->nb && comp->next)
 		{
 			list->rb = list->rb + 1;
 			comp = comp->next;
 		}
-		ft_printf("list->rb=%d\n", list->rb);
 		return (list);
 	}
 	if ((nb < comp->nb && comp->nb == b->max) || (nb > comp->nb && comp->nb != b->max))
@@ -83,26 +79,79 @@ void		ft_count_rr_rrr(t_instr *list)
 {
 	int		total1;
 	int		total2;
-//	int		total3;
+	int		total3;
 
-	if (list->ra > 0 || list->rra > 0 || list->rb > 0 || list->rrb > 0)
-		if (list->ra >= list->rra)
-		   total1 = list->rra;
-		if (list->ra < list->rra)
-		   total1 = list->ra;
-		if (list->rb >= list->rrb)
-		   total1 = total1 + list->rrb;
-		if (list->rb < list->rrb)
-		   total1 = total1 + list->rb;
-	if (list->ra > 0 || list->rra > 0 || list->rb > 0 || list->rrb > 0)
-		if (list->ra >= list->rb)
-		   total2 = list->rb + (list->ra - list->rb);
-		if (list->rb > list->ra)
-		   total2 = list->ra + (list->rb - list->ra);
-		if (list->rra >= list->rrb)
-		   total2 = total2 + list->rrb;
-		if (list->rra < list->rra)
-		   total2 = total2 + list->rb;
+	total1 = 0;
+	total2 = 0;
+	total3 = 0;
+	if (list->ra <= list->rra)
+		total1 = list->ra;
+	else
+		total1 = list->rra;
+	if (list->rb <= list->rrb)
+		total1 = total1 + list->rb;
+	else
+		total1 = total1 + list->rrb;
+	if (list->ra <= list->rb)
+		total2 = list->rb;
+	else
+		total2 = list->ra;
+	if (list->rra <= list->rrb)
+		total3 = list->rrb;
+	else
+		total3 = list->rra;
+	ft_printf("total1= %d, total2= %d, total3= %d\n", total1, total2, total3);
+	if (total1 <= total2 && total1 <= total3)
+	{
+		if (list->ra <= list->rra)
+			list->rra = 0;
+		else
+			list->ra = 0;
+		if (list->rb <= list->rrb)
+			list->rrb = 0;
+		else
+			list->rb = 0;
+	}
+	else if (total2 <= total1 && total2 <= total3)
+	{
+		if (list->ra <= list->rb)
+		{
+			list->rr = list->ra;
+			list->rb = list->rb - list->rr;
+			list->ra = 0;
+			list->rra = 0;
+			list->rrb = 0;
+			ft_printf("list->rr= %d\n", list->rr);
+		}
+		else if (list->ra > list->rb)
+		{
+			list->rr = list->rb;
+			list->ra = list->ra - list->rr;
+			list->rb = 0;
+			list->rra = 0;
+			list->rrb = 0;
+		}
+	}
+	else if (total3 <= total1 && total3 <= total2)
+	{
+		if (list->rra <= list->rrb)
+		{
+			list->rrr = list->rra;
+			list->rrb = list->rrb - list->rrr;
+			list->rra = 0;
+			list->ra = 0;
+			list->rb = 0;
+		}
+		else if (list->rrb < list->rra)
+		{
+			list->rrr = list->rrb;
+			list->rra = list->rra - list->rrr;
+			list->rrb = 0;
+			list->ra = 0;
+			list->rb = 0;
+		}
+
+	}
 }
 
 void		ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
@@ -120,7 +169,10 @@ void		ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 	if (list->rb != 0)
 		list->rrb = b->size - list->rb;
 	list->total = list->ra + list->rra + list->rb + list->rrb + list->rr + list->rrr;
-//	ft_count_rr_rrr(list);
+	ft_printf(" \n BEFORE CHANGE RR: \nra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total list = %d\n", list->ra, list->rra, list->rb, list->rrb, list->rr, list->rrr, list->total);
+	ft_count_rr_rrr(list);
+	list->total = list->ra + list->rra + list->rb + list->rrb + list->rr + list->rrr;
+	ft_printf("\n AFTER CHANGE RR: \nra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total list = %d\n", list->ra, list->rra, list->rb, list->rrb, list->rr, list->rrr, list->total);
 }
 
 void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
@@ -188,7 +240,7 @@ int			ft_arrange(t_stack *a, t_stack *b, int argc)
 	ft_list_print(a, 1);
 	ft_printf("b = \n");
 	ft_list_print(b, 1);
-	while (a)
+	while (a->size != 0)
 	{
 		tmp = a->first;
 		while (tmp->next)
@@ -203,7 +255,7 @@ int			ft_arrange(t_stack *a, t_stack *b, int argc)
 			tmp->rank = i + 2;
 			ft_printf("tmp->nb=%d\n", tmp->nb);
 			ft_count_instr(a, b, compare, tmp);
-			ft_printf("GOOD: \nra = %d, rra = %d, rb = %d, rrb = %d, total good = %d\nCOMPARE: \nra = %d, rra = %d, rb = %d, rrb = %d, total comp = %d\n", good->ra, good->rra, good->rb, good->rrb, good->total, compare->ra, compare->rra, compare->rb, compare->rrb, compare->total);
+		//	ft_printf("GOOD: \nra = %d, rra = %d, rb = %d, rrb = %d, total good = %d\nCOMPARE: \nra = %d, rra = %d, rb = %d, rrb = %d, total comp = %d\n", good->ra, good->rra, good->rb, good->rrb, good->total, compare->ra, compare->rra, compare->rb, compare->rrb, compare->total);
 			if (compare->total < good->total)
 				good = compare;
 			i++;
