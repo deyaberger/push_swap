@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_send_instruct.c                                 :+:      :+:    :+:   */
+/*   ft_arrange.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/21 14:19:59 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/23 12:50:03 by dberger          ###   ########.fr       */
+/*   Created: 2019/08/26 10:48:46 by dberger           #+#    #+#             */
+/*   Updated: 2019/08/26 12:05:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,54 @@ void		ft_first_instruct(t_stack *a, t_stack *b)
 	}
 }
 
-void		ft_count_instr(/*t_stack *a, t_stack *b, */t_instr *test, t_elem *tmp)
+t_instr		*ft_count_rb(t_stack *b, t_instr *list, t_elem *tmp)
 {
-	if (tmp->nb == 3)
-	{
-		test->ra = 0;
-		test->rra = 0;
-		test->rr = 2;
-		test->rrr = 0;
-		test->rb = 0;
-		test->rrb = 3;
-		test->total = test->ra + test->rra + test->rr + test->rrr + test->rb + test->rrb;
-	}
-	if (tmp->nb == 6)
-	{
-		test->ra = 1;
-		test->rra = 0;
-		test->rr = 0;
-		test->rrr = 0;
-		test->rb = 1;
-		test->rrb = 0;
-		test->total = test->ra + test->rra + test->rr + test->rrr + test->rb + test->rrb;
-	}
+	t_elem *comp;
+	t_elem *last;
 
-/*	ft_count_ra_rra;
-	ft_count_rb_rrb;
-	ft_count_rr_rrr;
-
-	count->ra = rank - 1;
-	count->rra = a->size - rank;*/
+	comp = b->first;
+	last = b->last;
+	if (tmp->nb < comp->nb && comp->nb != b->max)
+	{
+		while (tmp->nb < comp->nb && comp->nb != b->max && comp)
+		{
+			list->rb = list->rb + 1;
+			comp = comp->next;
+		}
+		return (list);
+	}
+	if (tmp->nb < comp->nb && comp->nb == b->max || tmp->nb > comp->nb && comp->nb != b->max)
+	{
+		if (tmp->nb < last)
+			return (list);
+		if (tmp->nb > last)
+		{
+			while (tmp->nb > comp->nb && comp->nb != b->max)
+			{
+				list->rb = list->rb + 1;
+				comp = comp->next;
+			}
+			while (tmp->nb < comp->nb)
+			{
+				list->rb = list->rb + 1;
+				comp = comp->next;
+			}
+		}
+	}
+	return (list);
 }
 
-int			ft_send_instruct(t_stack *a, t_stack *b, int argc)
+void		ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
+{
+	list->ra = tmp->rank - 1;
+	list->rra = a->size - rank;
+	list = ft_count_rb(b, list, tmp);
+	list->rrb = b->size - list->rb;
+//	ft_count_rr_rrr;
+
+}
+
+int			ft_arrange(t_stack *a, t_stack *b, int argc)
 {
 	t_instr		*good;
 	t_instr		*compare;
@@ -82,16 +98,17 @@ int			ft_send_instruct(t_stack *a, t_stack *b, int argc)
 		return (0);
 	if (argc > 3 && b->size == 0)
 		ft_first_instruct(a, b);
-	while (/*a*/ i < 2)
+	while (a)
 	{
 		tmp = a->first;
-		while (/*tmp*/i < 2)
+		while (tmp)
 		{
+			tmp->rank = i + 1;
 			if (tmp == a->first)
-				ft_count_instr(/*a, b,*/ good, tmp);
+				ft_count_instr(a, b, good, tmp);
 			if (tmp->next)
 				tmp = tmp->next;
-			ft_count_instr(/*a, b,*/ compare, tmp);
+			ft_count_instr(a, b, compare, tmp);
 			ft_printf("good->total=%d, compare->total=%d\n", good->total, compare->total);
 			if (compare->total < good->total)
 				good = compare;
