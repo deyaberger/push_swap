@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/26 11:15:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/27 14:38:12 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int					ft_rotate(t_stack *pile, int mode);
 int					ft_del_elem(t_stack *pile);
 int					ft_instruct(t_stack *a, t_stack *b);
 int					ft_stack_order(t_stack *a, t_stack *b);
+void				ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp);
 int					ft_arrange(t_stack *a, t_stack *b, int argc);
 
 #endif
