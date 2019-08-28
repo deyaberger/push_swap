@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/27 14:49:56 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/28 13:01:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int		ft_count_rb(t_stack *b, t_instr *list, int nb)
 	{
 		while (nb < comp->nb && comp->next)
 			comp = ft_browse_stack(list, comp);
+		if (nb == 1)
+			ft_printf("list->rb= %d\n", list->rb);
 		return (0);
 	}
 	if ((nb < comp->nb && comp->nb == b->max)
@@ -88,9 +90,9 @@ void	ft_count_rr_rrr(t_instr *list)
 	if (total1 <= total2 && total1 <= total3)
 	{
 		list->rra = list->ra <= list->rra ? 0 : list->rra;
-		list->ra = list->ra >= list->rra ? 0 : list->ra;
+		list->ra = list->ra < list->rra ? 0 : list->ra;
 		list->rrb = list->rb <= list->rrb ? 0 : list->rrb;
-		list->rb = list->rb >= list->rrb ? 0 : list->rb;
+		list->rb = list->rb < list->rrb ? 0 : list->rb;
 	}
 	else if (total2 < total1 && total2 <= total3)
 		ft_merge_a_b(list, 1);
@@ -108,13 +110,15 @@ void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 	list->rrr = 0;
 	list->ra = tmp->rank - 1;
 	if (list->ra != 0)
-		list->rra = a->size - tmp->rank + 1;
+		list->rra = a->size - list->ra;
 	ft_count_rb(b, list, tmp->nb);
 	if (list->rb != 0)
 		list->rrb = b->size - list->rb;
 	list->total = list->ra + list->rra + list->rb + list->rrb
 		+ list->rr + list->rrr;
+//	ft_printf("AVANT MERGE - POUR NB : %d *** ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", tmp->nb, list->ra, list->rra, list->rb, list->rrb, list->rr, list->rrr, list->total);
 	ft_count_rr_rrr(list);
 	list->total = list->ra + list->rra + list->rb + list->rrb
 		+ list->rr + list->rrr;
+	ft_printf("APRES MERGE - POUR NB : %d *** ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", tmp->nb, list->ra, list->rra, list->rb, list->rrb, list->rr, list->rrr, list->total);
 }

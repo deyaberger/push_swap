@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:30:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/26 10:48:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/27 18:48:32 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,9 @@ int		main(int argc, char **argv)
 		write (2, "Error\n", 6);
 	else if (!(b = ft_create_stack()))
 		write (2, "Error\n", 6);
-	ft_printf("a =\n");
-	ft_list_print(a, 1);
-	ft_printf("b =\n");
-	ft_list_print(b, 1);
-	ft_arrange(a, b, argc);
+	ft_print_instr(a, b, "", 1);
+	ft_arrange_b(a, b, argc);
+	ft_finish_swap(a, b);
+	ft_print_instr(a, b, "", 3);
 	return (0);
 }
