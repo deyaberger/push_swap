@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 12:21:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 12:43:52 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	ft_count_rr_rrr(t_instr *list)
 	if (total1 <= total2 && total1 <= total3)
 	{
 		list->rra = list->ra <= list->rra ? 0 : list->rra;
-		list->ra = list->ra < list->rra ? 0 : list->ra;
+		list->ra = list->rra == 0 ? list->ra : 0;
 		list->rrb = list->rb <= list->rrb ? 0 : list->rrb;
-		list->rb = list->rb < list->rrb ? 0 : list->rb;
+		list->rb = list->rrb == 0 ? list->rb : 0;
 	}
 	else if (total2 < total1 && total2 <= total3)
 		ft_merge_a_b(list, 1);
@@ -98,7 +98,7 @@ void	ft_count_rr_rrr(t_instr *list)
 		ft_merge_a_b(list, 2);
 }
 
-t_instr		*ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
+void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 {
 	list->ra = 0;
 	list->rra = 0;
@@ -118,5 +118,4 @@ t_instr		*ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 	ft_count_rr_rrr(list);
 	list->total = list->ra + list->rra + list->rb + list->rrb
 		+ list->rr + list->rrr;
-	return (list);
 }

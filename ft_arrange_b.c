@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/28 13:00:35 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 12:44:11 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,25 +96,17 @@ void	ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare)
 	tmp = a->first;
 	while (tmp)
 	{
-		ft_printf("boucle\n");
 		tmp->rank = i + 1;
 		if (tmp == a->first)
-		{
 			ft_count_instr(a, b, good, tmp);
-			compare = good;
-		}
 		tmp = tmp->next;
-	ft_printf("GOOD 1 : ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", good->ra, good->rra, good->rb, good->rrb, good->rr, good->rrr, good->total);
 		if (tmp)
 		{
 			tmp->rank = i + 2;
 			ft_count_instr(a, b, compare, tmp);
 		}
-	ft_printf("GOOD 2 : ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", good->ra, good->rra, good->rb, good->rrb, good->rr, good->rrr, good->total);
-	ft_printf("COMPARE 1 : ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", compare->ra, compare->rra, compare->rb, compare->rrb, compare->rr, compare->rrr, compare->total);
-		if (compare->total < good->total)
+		if (tmp && compare->total < good->total)
 			good = compare;
-	ft_printf("GOOD 3 : ra = %d, rra = %d, rb = %d, rrb = %d, rr = %d, rrr = %d, total = %d\n", good->ra, good->rra, good->rb, good->rrb, good->rr, good->rrr, good->total);
 		i++;
 	}
 }
@@ -136,9 +128,9 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 	{
 		ft_choose_nb(a, b, good, compare);
 		ft_do_instruct(a, b, good);
-		write(0, "pb\n", 3);
 		i = ft_del_elem(a);
 		ft_push(b, i);
+		ft_print_instr(a, b, "pb\n", 2);
 	}
 	return (1);
 }
