@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 18:56:03 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 19:12:05 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 	t_stack	*pile;
 
 	if (!ft_strcmp(str, "ra\n")
-		|| !ft_strcmp(str, "rb\n") || !ft_strcmp(str, "rr\n"))
+		|| !ft_strcmp(str, "rb\n") || !ft_strlen(str) || !ft_strcmp(str, "rr\n"))
 		mode = 1;
 	else
 		mode = 2;
