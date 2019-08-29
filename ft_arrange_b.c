@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 19:12:05 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 19:53:37 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 	int		i;
 
 	i = 0;
-	while (i < 2)
+	while (a->size > 3 && i < 2)
 	{
 		tmp = a->first;
 		while (tmp && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
@@ -141,7 +141,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 		return (0);
 	if (argc > 3 && b->size == 0)
 		ft_first_instruct(a, b);
-	while (a->size > 3)
+	while (a->size > 3 && argc)
 	{
 		ft_choose_nb(a, b, good, compare);
 		ft_do_instruct(a, b, good);

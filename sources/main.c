@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:30:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/13 15:10:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/21 13:43:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,17 @@ int		main(int argc, char **argv)
 	t_stack *a;
 	t_stack *b;
 
+	a = NULL;
+	b = NULL;
 	if (argc == 1 || !ft_check_arg(argv))
 		write (2, "Error\n", 6);
-	if (!(a = ft_init_a(argc, argv)))
+	else if (!(a = ft_init_a(argc, argv)))
 		write (2, "Error\n", 6);
-	if (!(b = ft_create_stack()))
+	else if (!(b = ft_create_stack()))
 		write (2, "Error\n", 6);
-	if (!(ft_instruct(a, b)))
+	else if (!(ft_instruct(a, b)))
 		write (2, "Error\n", 6);
-	if (!(ft_stack_order(a, b)))
+	else if (!(ft_stack_order(a, b)))
 		ft_printf("		{red}KO\n\n");
 	else
 	{
@@ -60,6 +62,7 @@ int		main(int argc, char **argv)
 		ft_list_print(a, 2);
 		ft_printf("{cyan}final stack 'b' empty{eoc}\n\n");
 	}
-	ft_clean_stack(a, b);
+	if (a && b)
+		ft_clean_stack(a, b);
 	return (0);
 }

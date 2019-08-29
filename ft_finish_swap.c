@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 17:14:03 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 19:53:39 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_arrange_a(t_stack *a, t_stack *b)
 			ft_print_instr(a, b, "rra\n", 2);
 		}
 	}
-	else if (elem->nb == a->max1)
+	else if (elem->nb == a->max3)
 	{
 		if (elem->next->nb == a->max1)
 		{
@@ -57,7 +57,7 @@ void	ft_arrange_a(t_stack *a, t_stack *b)
 	}
 }
 
-void	ft_finish_swap(t_stack *a, t_stack *b)
+int		ft_finish_swap(t_stack *a, t_stack *b)
 {
 	t_elem	*elem;
 	int		i;
@@ -69,11 +69,12 @@ void	ft_finish_swap(t_stack *a, t_stack *b)
 	i = 1;
 	rb = 0;
 	rrb = 0;
+	ft_arrange_a(a, b);
+	if (b->size == 0)
+		return (0);
 	elem = b->first;
 	elem->rank = i;
-	if (a->size != 0)
-		ft_arrange_a(a, b);
-	while (elem && elem->nb != b->max1)
+	while (b->size != 0 && elem && elem->nb != b->max1)
 	{
 		elem = elem->next;
 		elem->rank = i + 1;
@@ -100,4 +101,5 @@ void	ft_finish_swap(t_stack *a, t_stack *b)
 		ft_print_instr(a, b, "pa\n", 2);
 		i--;
 	}
+	return (1);
 }
