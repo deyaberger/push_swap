@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 12:44:11 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 18:56:03 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,22 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 	int		nb;
 	int		i;
 
-	tmp = a->first;
 	i = 0;
 	while (i < 2)
 	{
-		while (a->size > 3
-			&& (tmp->nb == a->max || tmp->nb == a->max2 || tmp->nb == a->max3))
-			tmp = tmp->next;
-		if (tmp->nb != a->max && tmp->nb != a->max2 && tmp->nb != a->max3)
+		tmp = a->first;
+		while (tmp && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
+		{
+			ft_rotate(a, 1);
+			ft_print_instr(a, b, "ra\n", 2);
+			tmp = a->first;
+		}
+		if (tmp->nb != a->max1 && tmp->nb != a->max2 && tmp->nb != a->max3)
 		{
 			nb = ft_del_elem(a);
 			ft_push(b, nb);
 			ft_print_instr(a, b, "pb\n", 2);
 		}
-		tmp = a->first;
 		i++;
 	}
 }
@@ -90,24 +92,39 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 void	ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare)
 {
 	t_elem	*tmp;
-	int		i;
+	int		count;
+	int		rank;
 
-	i = 0;
+	count = 0;
+	rank = 1;
 	tmp = a->first;
-	while (tmp)
+	while (tmp->next)
 	{
-		tmp->rank = i + 1;
-		if (tmp == a->first)
-			ft_count_instr(a, b, good, tmp);
-		tmp = tmp->next;
-		if (tmp)
+		tmp->rank = rank;
+		while (tmp && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
 		{
-			tmp->rank = i + 2;
-			ft_count_instr(a, b, compare, tmp);
+			tmp = tmp->next;
+			tmp->rank = rank + 1;
+			rank++;
 		}
+		if (count == 0 || (tmp == a->last && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3)))
+		{
+			ft_count_instr(a, b, good, tmp);
+			count = 1;
+		}
+		tmp = tmp->next;
+		rank++;
+		tmp->rank = rank;
+		while (tmp->next && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
+		{
+			tmp = tmp->next;
+			tmp->rank = rank + 1;
+			rank++;
+		}
+		if (tmp)
+			ft_count_instr(a, b, compare, tmp);
 		if (tmp && compare->total < good->total)
 			good = compare;
-		i++;
 	}
 }
 
@@ -124,7 +141,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 		return (0);
 	if (argc > 3 && b->size == 0)
 		ft_first_instruct(a, b);
-	while (a->size != 0)
+	while (a->size > 3)
 	{
 		ft_choose_nb(a, b, good, compare);
 		ft_do_instruct(a, b, good);

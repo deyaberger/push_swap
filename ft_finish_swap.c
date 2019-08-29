@@ -6,11 +6,56 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/27 18:49:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/29 17:14:03 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/push_swap.h"
+
+void	ft_arrange_a(t_stack *a, t_stack *b)
+{
+	t_elem *elem;
+
+	elem = a->first;
+	if (elem->nb == a->max1)
+	{
+		if (elem->next->nb == a->max3)
+		{
+			ft_rotate(a, 1);
+			ft_print_instr(a, b, "ra\n", 2);
+		}
+		else if (elem->next->nb == a->max2)
+		{
+			ft_rotate(a, 1);
+			ft_print_instr(a, b, "ra\n", 2);
+			ft_swap(a);
+			ft_print_instr(a, b, "sa\n", 2);
+		}
+	}
+	else if (elem->nb == a->max2)
+	{
+		if (elem->next->nb == a->max3)
+		{
+			ft_swap(a);
+			ft_print_instr(a, b, "sa\n", 2);
+		}
+		else if (elem->next->nb == a->max1)
+		{
+			ft_rotate(a, 2);
+			ft_print_instr(a, b, "rra\n", 2);
+		}
+	}
+	else if (elem->nb == a->max1)
+	{
+		if (elem->next->nb == a->max1)
+		{
+			ft_swap(a);
+			ft_print_instr(a, b, "sa\n", 2);
+			ft_rotate(a, 1);
+			ft_print_instr(a, b, "ra\n", 2);
+		}
+	}
+}
 
 void	ft_finish_swap(t_stack *a, t_stack *b)
 {
@@ -26,7 +71,9 @@ void	ft_finish_swap(t_stack *a, t_stack *b)
 	rrb = 0;
 	elem = b->first;
 	elem->rank = i;
-	while (elem && elem->nb != b->max)
+	if (a->size != 0)
+		ft_arrange_a(a, b);
+	while (elem && elem->nb != b->max1)
 	{
 		elem = elem->next;
 		elem->rank = i + 1;
