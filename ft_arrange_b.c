@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/30 13:06:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/30 16:45:25 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 	while (a->size > 3 && i < 2)
 	{
 		tmp = a->first;
-		while (tmp && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
+		while (tmp && (tmp->nb == a->max1
+					|| tmp->nb == a->max2 || tmp->nb == a->max3))
 		{
 			ft_rotate(a, 1);
 			ft_print_instr(a, b, "ra\n", 2);
@@ -43,13 +44,13 @@ void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 	int		mode;
 	t_stack	*pile;
 
-	if (!ft_strcmp(str, "ra\n")
-		|| !ft_strcmp(str, "rb\n") || !ft_strlen(str) || !ft_strcmp(str, "rr\n"))
+	if (!ft_strcmp(str, "ra\n") || !ft_strcmp(str, "rb\n")
+			|| !ft_strlen(str) || !ft_strcmp(str, "rr\n"))
 		mode = 1;
 	else
 		mode = 2;
 	if (!ft_strcmp(str, "ra\n")
-		|| !ft_strcmp(str, "rra\n") || !ft_strlen(str))
+			|| !ft_strcmp(str, "rra\n") || !ft_strlen(str))
 		pile = a;
 	else
 		pile = b;
@@ -76,10 +77,7 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	if (good->rb != 0)
 		ft_rotate_n(a, b, good->rb, "rb\n");
 	if (good->rrb != 0)
-	{
-		ft_printf("rrb = %d\n", good->rrb);
 		ft_rotate_n(a, b, good->rrb, "rrb\n");
-	}
 	if (good->rr != 0)
 	{
 		ft_rotate_n(a, b, good->rr, "");
@@ -92,64 +90,59 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	}
 }
 
-void	ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare)
-{
-	t_elem	*tmp;
-	int		count;
-	int		rank;
-
-	count = 0;
-	rank = 1;
-	tmp = a->first;
-	while (tmp->next)
-	{
-		tmp->rank = rank;
-		while (tmp && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
-		{
-			tmp = tmp->next;
-			tmp->rank = rank + 1;
-			rank++;
-		}
-		if (count == 0 || (tmp == a->last && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3)))
-		{
-			ft_count_instr(a, b, good, tmp);
-			count = 1;
-		}
-		tmp = tmp->next;
-		rank++;
-		tmp->rank = rank;
-		while (tmp->next && (tmp->nb == a->max1 || tmp->nb == a->max2 || tmp->nb == a->max3))
-		{
-			tmp = tmp->next;
-			tmp->rank = rank + 1;
-			rank++;
-		}
-		if (tmp)
-			ft_count_instr(a, b, compare, tmp);
-		if (tmp && compare->total < good->total)
-			good = compare;
-	}
-}
-
 int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 {
 	t_instr		*good;
 	t_instr		*compare;
-	int			i;
+	t_elem		*tmp;
+	int			count;
+	int			rank;
 
-	i = 0;
+
 	if (!(good = (t_instr *)malloc(sizeof(*good))))
 		return (0);
 	if (!(compare = (t_instr *)malloc(sizeof(*compare))))
 		return (0);
 	if (argc > 3 && b->size == 0)
 		ft_first_instruct(a, b);
-	while (a->size > 3 && argc)
+	while (a->size > 3)
 	{
-		ft_choose_nb(a, b, good, compare);
+		count = 0;
+		rank = 1;
+		tmp = a->first;
+		while (tmp->next)
+		{
+			tmp->rank = rank;
+			while (tmp && (tmp->nb == a->max1
+						|| tmp->nb == a->max2 || tmp->nb == a->max3))
+			{
+				tmp = tmp->next;
+				tmp->rank = rank + 1;
+				rank++;
+			}
+			if (count == 0 || (tmp == a->last && (tmp->nb == a->max1
+							|| tmp->nb == a->max2 || tmp->nb == a->max3)))
+			{
+				ft_count_instr(a, b, good, tmp);
+				count = 1;
+			}
+			tmp = tmp->next;
+			rank++;
+			tmp->rank = rank;
+			while (tmp->next && (tmp->nb == a->max1
+						|| tmp->nb == a->max2 || tmp->nb == a->max3))
+			{
+				tmp = tmp->next;
+				tmp->rank = rank + 1;
+				rank++;
+			}
+			if (tmp)
+				ft_count_instr(a, b, compare, tmp);
+			if (tmp && tmp->nb != a->max1 && tmp->nb != a->max2 && tmp->nb != a->max3 && compare->total < good->total)
+				good = compare;
+		}
 		ft_do_instruct(a, b, good);
-		i = ft_del_elem(a);
-		ft_push(b, i);
+		ft_push(b, ft_del_elem(a));
 		ft_print_instr(a, b, "pb\n", 2);
 	}
 	return (1);
