@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 16:30:22 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/21 13:43:57 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/30 12:22:59 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_stack		*ft_init_a(int argc, char **argv)
 	return (a);
 }
 
-void	ft_clean_stack(t_stack *a, t_stack *b)
+void		ft_clean_stack(t_stack *a, t_stack *b)
 {
 	while (a->first)
 		ft_del_elem(a);
@@ -38,7 +38,7 @@ void	ft_clean_stack(t_stack *a, t_stack *b)
 	free(b);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
@@ -46,22 +46,17 @@ int		main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	if (argc == 1 || !ft_check_arg(argv))
-		write (2, "Error\n", 6);
+		write(2, "Error\n", 6);
 	else if (!(a = ft_init_a(argc, argv)))
-		write (2, "Error\n", 6);
+		write(2, "Error\n", 6);
 	else if (!(b = ft_create_stack()))
-		write (2, "Error\n", 6);
+		write(2, "Error\n", 6);
 	else if (!(ft_instruct(a, b)))
-		write (2, "Error\n", 6);
+		write(2, "Error\n", 6);
 	else if (!(ft_stack_order(a, b)))
 		ft_printf("		{red}KO\n\n");
 	else
-	{
 		ft_printf("		{green}OK\n\n");
-		ft_printf("\n{cyan}final stack 'a' ={eoc}\n");
-		ft_list_print(a, 2);
-		ft_printf("{cyan}final stack 'b' empty{eoc}\n\n");
-	}
 	if (a && b)
 		ft_clean_stack(a, b);
 	return (0);
