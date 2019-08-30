@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 11:54:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 15:01:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/30 12:41:13 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_push(t_stack *pile, int n)
 	if (new->nb <= pile->min)
 		pile->min = new->nb;
 	pile->size = pile->size + 1;
-	if (!pile->first && !pile->last)
+	if (!pile->last)
 		pile->last = new;
 	if (pile->first)
 		new->next = pile->first;
