@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 19:53:37 by dberger          ###   ########.fr       */
+/*   Updated: 2019/08/30 13:06:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 	while (x > 0)
 	{
 		ft_rotate(pile, mode);
+		if (str[0] != '\0')
+			ft_print_instr(a, b, str, 2);
 		x--;
 	}
-	if (str[0] != '\0')
-		ft_print_instr(a, b, str, 2);
 }
 
 void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
@@ -76,7 +76,10 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	if (good->rb != 0)
 		ft_rotate_n(a, b, good->rb, "rb\n");
 	if (good->rrb != 0)
+	{
+		ft_printf("rrb = %d\n", good->rrb);
 		ft_rotate_n(a, b, good->rrb, "rrb\n");
+	}
 	if (good->rr != 0)
 	{
 		ft_rotate_n(a, b, good->rr, "");
