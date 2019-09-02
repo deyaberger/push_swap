@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/30 14:44:10 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/02 16:18:18 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,16 @@ int			ft_finish_swap(t_stack *a, t_stack *b)
 	ft_arrange_a(a, b);
 	if (b->size == 0)
 		return (0);
+	if (b->size == 1)
+	{
+		ft_push(a, ft_del_elem(b));
+		ft_print_instr(a, b, "pa\n", 2);
+		return (0);
+	}
 	elem = ft_give_rank(b);
-	i = elem->rank - 1 <= b->size - elem->rank - 1 ?
-		elem->rank - 1 : b->size - elem->rank - 1;
-	mode = elem->rank - 1 <= b->size - elem->rank - 1 ? 1 : 2;
+	i = elem->rank - 1 <= b->size - elem->rank + 1 ?
+		elem->rank - 1: b->size - elem->rank + 1;
+	mode = elem->rank - 1 <= b->size - elem->rank + 1? 1 : 2;
 	while (i--)
 	{
 		ft_rotate(b, mode);

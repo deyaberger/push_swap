@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/02 15:14:28 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/02 17:45:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	}
 	if (good->rrr != 0)
 	{
+		ft_printf("rrr= %d\n", good->rrr);
+		ft_printf("test\n");
 		ft_rotate_n(a, b, good->rrr, "");
 		ft_rotate_n(a, b, good->rrr, "rrr\n");
 	}
@@ -103,7 +105,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 		ft_first_instruct(a, b);
 	while (a->size > 3)
 	{
-		ft_choose_nb(a, b, good, compare);
+		good = ft_choose_nb(a, b, good, compare);
 		ft_do_instruct(a, b, good);
 		ft_push(b, ft_del_elem(a));
 		ft_print_instr(a, b, "pb\n", 2);
