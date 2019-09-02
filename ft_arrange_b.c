@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/02 17:45:56 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/02 18:17:57 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,19 @@ void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 	t_stack	*pile;
 
 	if (!ft_strcmp(str, "ra\n") || !ft_strcmp(str, "rb\n")
-			|| !ft_strlen(str) || !ft_strcmp(str, "rr\n"))
+			|| !ft_strcmp(str, "rr\n") || !ft_strcmp(str, "1"))
 		mode = 1;
 	else
 		mode = 2;
 	if (!ft_strcmp(str, "ra\n")
-			|| !ft_strcmp(str, "rra\n") || !ft_strlen(str))
+			|| !ft_strcmp(str, "rra\n") || !ft_strcmp(str, "2"))
 		pile = a;
 	else
 		pile = b;
 	while (x > 0)
 	{
 		ft_rotate(pile, mode);
-		if (str[0] != '\0')
+		if (ft_strcmp(str, "1") && ft_strcmp(str, "2"))
 			ft_print_instr(a, b, str, 2);
 		x--;
 	}
@@ -80,14 +80,12 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 		ft_rotate_n(a, b, good->rrb, "rrb\n");
 	if (good->rr != 0)
 	{
-		ft_rotate_n(a, b, good->rr, "");
+		ft_rotate_n(a, b, good->rr, "1");
 		ft_rotate_n(a, b, good->rr, "rr\n");
 	}
 	if (good->rrr != 0)
 	{
-		ft_printf("rrr= %d\n", good->rrr);
-		ft_printf("test\n");
-		ft_rotate_n(a, b, good->rrr, "");
+		ft_rotate_n(a, b, good->rrr, "2");
 		ft_rotate_n(a, b, good->rrr, "rrr\n");
 	}
 }
