@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/29 18:09:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/02 17:37:18 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_count_rb(t_stack *b, t_instr *list, int nb)
 	comp = b->first;
 	if (nb < comp->nb)
 	{
-		while (nb < comp->nb && comp->next)
+		while (nb < comp->nb && comp->next && comp->nb != b->max1)
 			comp = ft_browse_stack(list, comp);
 		return (0);
 	}
