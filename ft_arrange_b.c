@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/30 16:45:25 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/02 15:14:28 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,6 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 {
 	t_instr		*good;
 	t_instr		*compare;
-	t_elem		*tmp;
-	int			count;
-	int			rank;
-
 
 	if (!(good = (t_instr *)malloc(sizeof(*good))))
 		return (0);
@@ -107,40 +103,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 		ft_first_instruct(a, b);
 	while (a->size > 3)
 	{
-		count = 0;
-		rank = 1;
-		tmp = a->first;
-		while (tmp->next)
-		{
-			tmp->rank = rank;
-			while (tmp && (tmp->nb == a->max1
-						|| tmp->nb == a->max2 || tmp->nb == a->max3))
-			{
-				tmp = tmp->next;
-				tmp->rank = rank + 1;
-				rank++;
-			}
-			if (count == 0 || (tmp == a->last && (tmp->nb == a->max1
-							|| tmp->nb == a->max2 || tmp->nb == a->max3)))
-			{
-				ft_count_instr(a, b, good, tmp);
-				count = 1;
-			}
-			tmp = tmp->next;
-			rank++;
-			tmp->rank = rank;
-			while (tmp->next && (tmp->nb == a->max1
-						|| tmp->nb == a->max2 || tmp->nb == a->max3))
-			{
-				tmp = tmp->next;
-				tmp->rank = rank + 1;
-				rank++;
-			}
-			if (tmp)
-				ft_count_instr(a, b, compare, tmp);
-			if (tmp && tmp->nb != a->max1 && tmp->nb != a->max2 && tmp->nb != a->max3 && compare->total < good->total)
-				good = compare;
-		}
+		ft_choose_nb(a, b, good, compare);
 		ft_do_instruct(a, b, good);
 		ft_push(b, ft_del_elem(a));
 		ft_print_instr(a, b, "pb\n", 2);
