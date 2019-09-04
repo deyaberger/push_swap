@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/02 18:42:58 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 18:05:36 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct		s_stack
 
 typedef struct		s_instr
 {
+	int				sa;
 	int				ra;
 	int				rb;
 	int				rr;
