@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/02 18:46:24 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:02:41 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,21 @@ int		ft_read_push(char *line, t_stack *a, t_stack *b)
 {
 	int		n;
 
-	if (!ft_strcmp(line, "pa") && b->first)
+	if (!ft_strcmp(line, "pa"))
 	{
-		n = ft_del_elem(b);
-		ft_push(a, n);
+		if (b->first)
+		{
+			n = ft_del_elem(b);
+			ft_push(a, n);
+		}
 	}
-	else if (!ft_strcmp(line, "pb") && a->first)
+	else if (!ft_strcmp(line, "pb"))
 	{
-		n = ft_del_elem(a);
-		ft_push(b, n);
+		if (a->first)
+		{
+			n = ft_del_elem(a);
+			ft_push(b, n);
+		}
 	}
 	else
 		return (0);
@@ -88,8 +94,7 @@ int		ft_instruct(t_stack *a, t_stack *b)
 			return (0);
 		else if (line[0] == 'r' && !ft_read_rot(line, a, b))
 			return (0);
-		ft_printf("line = %s\n", line);
-		ft_print_instr(a, b, line, 5);
+		ft_print_instr(a, b, "", 5);
 		free(line);
 	}
 	return (1);

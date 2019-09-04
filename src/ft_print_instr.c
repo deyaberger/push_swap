@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 18:20:12 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/02 18:45:10 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 13:50:26 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void		ft_print_instr(t_stack *a, t_stack *b, char *str, int color)
 	}
 	if (color == 5)
 	{
-		mode = 2;
+		mode = 1;
 		color = 2;
 	}
 	if (mode == 1 || (mode == 2 && !str[0]))

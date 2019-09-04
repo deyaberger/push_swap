@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 17:59:03 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/30 12:56:27 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 13:52:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		ft_rotate(t_stack *pile, int mode)
 	t_elem	*bottom;
 	t_elem	*link;
 
-	if (!pile->first)
+	if (!pile->first || pile->size == 1)
 		return (0);
 	top = pile->first;
 	link = top;
