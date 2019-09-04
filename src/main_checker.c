@@ -6,13 +6,13 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 13:47:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 14:46:47 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_stack		*ft_init_a(int argc, char **argv)
+t_stack		*ft_init_a(int argc, char **arg)
 {
 	t_stack *a;
 	int		i;
@@ -20,9 +20,9 @@ t_stack		*ft_init_a(int argc, char **argv)
 	if (!(a = ft_create_stack()))
 		return (0);
 	i = argc - 1;
-	while (i > 0)
+	while (i >= 0)
 	{
-		ft_push(a, ft_atoi(argv[i]));
+		ft_push(a, ft_atoi(arg[i]));
 		i--;
 	}
 	return (a);
@@ -42,12 +42,19 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
+	char	 **arg;
+	int		i;
 
 	a = NULL;
 	b = NULL;
-	if (argc == 1 || !ft_check_arg(argv))
+	i = 0;
+	arg = ft_strsplit(argv[1], 32);
+	while(arg[i])
+		i++;
+	argc = i;
+	if (argc == 0 || !ft_check_arg(arg))
 		write(2, "Error\n", 6);
-	else if (!(a = ft_init_a(argc, argv)))
+	else if (!(a = ft_init_a(argc, arg)))
 		write(2, "Error\n", 6);
 	else if (!(b = ft_create_stack()))
 		write(2, "Error\n", 6);

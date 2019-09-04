@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/03 15:48:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/04 17:29:32 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ void	ft_count_rr_rrr(t_instr *list)
 
 void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 {
+	list->sa = 0;
 	list->ra = 0;
 	list->rra = 0;
 	list->rb = 0;
