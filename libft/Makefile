@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 10:16:12 by dberger           #+#    #+#              #
-#    Updated: 2019/07/01 15:38:43 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/03 16:33:57 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,12 +85,14 @@ ft_strlen_l.c\
 HEADERS = libft.h
 OBJECT = $(SOURCES:.c=.o)
 
+.PHONY: all clean fclean re
+
 $(NAME):
 	@$(CC) $(FLAGS) -c $(SOURCES)
 	@ar rc $(NAME) $(OBJECT)
 	@ranlib $(NAME)
 
-all: @$(NAME)
+all: $(NAME)
 
 clean:
 	@rm -rf $(OBJECT)
@@ -99,4 +101,3 @@ fclean: clean
 	@rm -rf $(NAME)
 
 re: fclean all
-
