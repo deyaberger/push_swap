@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 14:49:54 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/05 15:06:08 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ int		ft_read_rot(char *line, t_stack *a, t_stack *b)
 
 int		ft_instruct(t_stack *a, t_stack *b)
 {
-	int		fd;
 	char	*line;
 
-	fd = 0;
-	while (get_next_line(fd, &line) == 1)
+	while (get_next_line(0, &line) == 1)
 	{
 		if (line[0] != 's' && line[0] != 'p' && line[0] != 'r')
 			return (0);

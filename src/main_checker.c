@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 14:46:47 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/05 14:27:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,16 @@ int			main(int argc, char **argv)
 	a = NULL;
 	b = NULL;
 	i = 0;
+	if (argc == 1)
+	{
+		write(2, "Error\n", 6);
+		return (0);
+	}
 	arg = ft_strsplit(argv[1], 32);
 	while(arg[i])
 		i++;
 	argc = i;
-	if (argc == 0 || !ft_check_arg(arg))
+	if (!ft_check_arg(arg))
 		write(2, "Error\n", 6);
 	else if (!(a = ft_init_a(argc, arg)))
 		write(2, "Error\n", 6);

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 16:23:39 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/05 16:48:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,17 @@ int			main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	arg = ft_strsplit(argv[1], ' ');
+/*	arg = ft_strsplit(argv[1], ' ');
 	while(arg[i])
 		i++;
-	argc = i;
-	if (!ft_check_arg(arg))
+	argc = i;*/
+//	ft_printf("argv[1]= %s\n", argv[1]);
+	if (!ft_check_arg(argv))
 	{
 		write(2, "Error1\n", 7);
 		return (0);
 	}
-	else if (!(a = ft_init_a(argc, arg)))
+	else if (!(a = ft_init_a(argc, argv)))
 	{
 		write(2, "Error2\n", 7);
 		return (0);
@@ -69,6 +70,5 @@ int			main(int argc, char **argv)
 	}
 	if (argc > 2)
 		ft_finish_swap(a, b);
-//	ft_printf("\nTotal of operations = %d\n\n", a->op);
 	return (0);
 }
