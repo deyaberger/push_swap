@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 18:20:12 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 13:50:26 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/05 15:24:48 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		ft_print_instr(t_stack *a, t_stack *b, char *str, int color)
 	mode = SHOW;
 	if (str[0])
 	{
-		write(0, str, ft_strlen(str));
+		write(1, str, ft_strlen(str));
 		a->op = a->op + 1;
 	}
 	if (color == 5)
