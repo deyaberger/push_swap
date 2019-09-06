@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 17:29:32 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/06 13:40:21 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,54 +45,44 @@ int		ft_count_rb(t_stack *b, t_instr *list, int nb)
 	return (0);
 }
 
-void	ft_merge_a_b(t_instr *list, int mode)
-{
-	if (mode == 1)
-	{
-		list->rr = list->ra <= list->rb ? list->ra : list->rb;
-		list->rra = 0;
-		list->rrb = 0;
-		if (list->ra <= list->rb && (list->ra = 0) == 0)
-			list->rb = list->rb - list->rr;
-		else if (list->ra > list->rb && (list->rb = 0) == 0)
-			list->ra = list->ra - list->rr;
-	}
-	if (mode == 2)
-	{
-		list->rrr = list->rra <= list->rrb ? list->rra : list->rrb;
-		list->ra = 0;
-		list->rb = 0;
-		if (list->rra <= list->rrb && (list->rra = 0) == 0)
-			list->rrb = list->rrb - list->rrr;
-		else if (list->rrb < list->rra && (list->rrb = 0) == 0)
-			list->rra = list->rra - list->rrr;
-	}
-}
-
 void	ft_count_rr_rrr(t_instr *list)
 {
 	int		total1;
 	int		total2;
 	int		total3;
+	int		total4;
 
-	total1 = 0;
-	total2 = 0;
-	total3 = 0;
-	total1 = list->ra <= list->rra ? list->ra : list->rra;
-	total1 = list->rb <= list->rrb ? total1 + list->rb : total1 + list->rrb;
-	total2 = list->ra <= list->rb ? list->rb : list->ra;
-	total3 = list->rra <= list->rrb ? list->rrb : list->rra;
-	if (total1 <= total2 && total1 <= total3)
+	total1 = list->ra <= list->rb ? list->rb : list->ra;
+	total2 = list->rra <= list->rrb ? list->rrb : list->rra;
+	total3 = list->ra + list->rrb;
+	total4 = list->rra + list->rb;
+	if (total1 <= total2 && total1 <= total3 && total1 <= total4)
 	{
-		list->rra = list->ra <= list->rra ? 0 : list->rra;
-		list->ra = list->rra == 0 ? list->ra : 0;
-		list->rrb = list->rb <= list->rrb ? 0 : list->rrb;
-		list->rb = list->rrb == 0 ? list->rb : 0;
+		list->rra = 0;
+		list->rrb = 0;
+		list->rr = list->ra <= list->rb ? list->ra : list->rb;
+		list->ra = list->ra <= list->rb ? 0 : list->ra - list->rr;
+		list->rb = list->ra == 0 ? list->rb - list->rr : 0;
 	}
-	else if (total2 < total1 && total2 <= total3)
-		ft_merge_a_b(list, 1);
-	else if (total3 < total1 && total3 < total2)
-		ft_merge_a_b(list, 2);
+	else if (total2 < total1 && total2 <= total3 && total2 <= total4)
+	{
+		list->ra = 0;
+		list->rb = 0;
+		list->rrr = list->rra <= list->rrb ? list->rra : list->rrb;
+		list->rra = list->rra <= list->rrb ? 0 : list->rra - list->rrr;
+		list->rrb = list->rra == 0 ? list->rrb - list->rrr : 0;
+
+	}
+	else if (total3 < total1 && total3 < total2 && total3 <= total4)
+	{
+		list->rra = 0;
+		list->rb = 0;
+	}
+	else if (total4 < total1 && total4 < total2 && total4 < total3)
+	{
+		list->ra = 0;
+		list->rrb = 0;
+	}
 }
 
 void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
