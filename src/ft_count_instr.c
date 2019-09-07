@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/06 13:40:21 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/07 17:51:01 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_count_rr_rrr(t_instr *list)
 	}
 }
 
-void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
+t_instr	*ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 {
 	list->sa = 0;
 	list->ra = 0;
@@ -106,4 +106,5 @@ void	ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 	ft_count_rr_rrr(list);
 	list->total = list->ra + list->rra + list->rb + list->rrb
 		+ list->rr + list->rrr;
+	return (list);
 }

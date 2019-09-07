@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 18:04:18 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/07 13:25:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,19 @@ t_elem		*ft_give_rank(t_stack *b)
 	t_elem	*elem;
 
 	i = 1;
-	elem = b->first;
-	elem->rank = i;
-	while (elem && elem->nb != b->max1)
+	if (b->first)
 	{
-		elem = elem->next;
-		elem->rank = i + 1;
-		i++;
+		elem = b->first;
+		elem->rank = i;
+		while (elem && elem->nb != b->max1)
+		{
+			elem = elem->next;
+			elem->rank = i + 1;
+			i++;
+		}
+		return (elem);
 	}
-	return (elem);
+	return (NULL);
 }
 
 void		ft_finish_instr(t_stack *a, t_stack *b, t_instr *list)
@@ -91,21 +95,23 @@ void		ft_finish_instr(t_stack *a, t_stack *b, t_instr *list)
 		ft_rotate(b, 2);
 		ft_print_instr(a, b, "rrr\n", 2);
 	}
-	if (list->rb)
+	if (b->first && list->rb)
 	{
 		i = list->rb;
 		while (i)
 		{
 			ft_rotate(b, 1);
+			ft_print_instr(a, b, "rb\n", 2);
 			i--;
 		}
 	}
-	if (list->rb)
+	if (b->first && list->rrb)
 	{
 		i = list->rb;
 		while (i)
 		{
-			ft_rotate(b, 1);
+			ft_rotate(b, 2);
+			ft_print_instr(a, b, "rrb\n", 2);
 			i--;
 		}
 	}
@@ -133,30 +139,34 @@ int			ft_finish_swap(t_stack *a, t_stack *b)
 	list->rr = 0;
 	list->rrr = 0;
 	list->total = 0;
+	if (a->size < 3)
+	{
+		if (a->first->nb > a->first->next->nb)
+		{
+			ft_swap(a);
+			ft_print_instr(a, b, "sa\n", 2);
+		}
+		return (0);
+	}
 	ft_arrange_a(a, b, list);
-	if (b->size == 0)
-		return (0);
-	if (b->size == 1)
-	{
-		ft_push(a, ft_del_elem(b));
-		ft_print_instr(a, b, "pa\n", 2);
-		return (0);
-	}
 	elem = ft_give_rank(b);
-	list->rb = elem->rank - 1 <= b->size - elem->rank + 1 ?
+	if (b->first)
+	{
+		list->rb = elem->rank - 1 <= b->size - elem->rank + 1 ?
 			elem->rank - 1: 0;
-	list->rrb = elem->rank - 1 <= b->size - elem->rank + 1? 0 : b->size - elem->rank + 1;
-	if (list->ra && list->rb)
-	{
-		list->rr = list->ra;
-		list->ra = 0;
-		list->rb = list->rb - list->rr;
-	}
-	if (list->rra && list->rrb)
-	{
-		list->rrr = list->rra;
-		list->rra = 0;
-		list->rrb = list->rrb - list->rrr;
+		list->rrb = elem->rank - 1 <= b->size - elem->rank + 1? 0 : b->size - elem->rank + 1;
+		if (list->ra && list->rb)
+		{
+			list->rr = list->ra;
+			list->ra = 0;
+			list->rb = list->rb - list->rr;
+		}
+		if (list->rra && list->rrb)
+		{
+			list->rrr = list->rra;
+			list->rra = 0;
+			list->rrb = list->rrb - list->rrr;
+		}
 	}
 	ft_finish_instr(a, b, list);
 	while (b->size != 0)

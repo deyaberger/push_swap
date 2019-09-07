@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 17:05:01 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/07 17:51:41 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	}
 }
 
-int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
+int		ft_arrange_b(t_stack *a, t_stack *b)
 {
 	t_instr		*good;
 	t_instr		*compare;
@@ -99,8 +99,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b, int argc)
 		return (0);
 	if (!(compare = (t_instr *)malloc(sizeof(*compare))))
 		return (0);
-	if (argc > 3 && b->size == 0)
-		ft_first_instruct(a, b);
+	ft_first_instruct(a, b);
 	while (a->size > 3)
 	{
 		good = ft_choose_nb(a, b, good, compare);

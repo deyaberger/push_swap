@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:10:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/04 16:14:13 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/07 17:51:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,25 @@ t_instr	*ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare)
 		rank = ft_ranking(a, &tmp, rank);
 		if (count == 0 && tmp->nb != a->max1
 			&& tmp->nb != a->max2 && tmp->nb != a->max3 && (count = 1) == 1)
-			ft_count_instr(a, b, good, tmp);
+			good = ft_count_instr(a, b, good, tmp);
 		tmp = tmp->next;
-		if (tmp && tmp->nb != a->max1 && tmp->nb != a->max2
-				&& tmp->nb != a->max3)
+		if (tmp)
 		{
 			rank = ft_ranking(a, &tmp, rank + 1);
-			ft_count_instr(a, b, compare, tmp);
-			if (compare->total < good->total)
-				good = compare;
+			if (tmp->nb != a->max1 && tmp->nb != a->max2 && tmp->nb != a->max3)
+			{
+				compare = ft_count_instr(a, b, compare, tmp);
+				if (compare->total < good->total)
+				{
+					good->ra = compare->ra;
+					good->rra = compare->rra;
+					good->rb = compare->rb;
+					good->rrb = compare->rrb;
+					good->rr = compare->rr;
+					good->rrr = compare->rrr;
+					good->total = compare->total;
+				}
+			}
 		}
 	}
 	return (good);
