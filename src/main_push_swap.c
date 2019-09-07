@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/05 16:48:02 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/07 13:19:16 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_stack		*ft_init_a(int argc, char **arg)
 	int		i;
 
 	if (!(a = ft_create_stack()))
-		return (0);
+		return (NULL);
 	i = argc - 1;
-	while (i >= 0)
+	while (i > 0)
 	{
 		ft_push(a, ft_atoi(arg[i]));
 		i--;
@@ -32,43 +32,32 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	char	**arg;
-	int 	i;
 
 	a = NULL;
 	b = NULL;
-	i = 0;
-	if(argc == 1)
+	if (argc == 1)
+		return (1);
+	if (!ft_check_arg(argv))
 	{
 		write(2, "Error\n", 6);
 		return (0);
 	}
-/*	arg = ft_strsplit(argv[1], ' ');
-	while(arg[i])
-		i++;
-	argc = i;*/
-//	ft_printf("argv[1]= %s\n", argv[1]);
-	if (!ft_check_arg(argv))
+	a = ft_init_a(argc, argv);
+	b = ft_create_stack();
+	if (!a || !b)
 	{
-		write(2, "Error1\n", 7);
+		write(2, "Error\n", 6);
 		return (0);
 	}
-	else if (!(a = ft_init_a(argc, argv)))
-	{
-		write(2, "Error2\n", 7);
-		return (0);
-	}
-	else if (!(b = ft_create_stack()))
-	{
-		write(2, "Error3\n", 7);
-		return (0);
-	}
-	if (argc > 2 && !(ft_arrange_b(a, b, argc)))
-	{
-		write(2, "Error4\n", 7);
-		return (0);
-	}
+	ft_print_instr(a, b, "", 1);
+	if (argc > 3)
+		if (!(ft_arrange_b(a, b)))
+		{
+			write(2, "Error\n", 6);
+			return (0);
+		}
 	if (argc > 2)
 		ft_finish_swap(a, b);
-	return (0);
+	ft_print_instr(a, b, "", 3);
+	return (1);
 }
