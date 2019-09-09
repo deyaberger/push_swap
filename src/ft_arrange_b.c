@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 18:12:38 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:12:49 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 			ft_print_instr(a, b, "ra\n", 2);
 			tmp = a->first;
 		}
-		if (tmp->nb != a->max1 && tmp->nb != a->max2 && tmp->nb != a->max3 && a->first)
+		if (tmp->nb != a->max1 && tmp->nb != a->max2
+			&& tmp->nb != a->max3 && a->first)
 		{
 			nb = ft_del_elem(a);
 			ft_push(b, nb);
