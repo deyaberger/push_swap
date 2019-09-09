@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 17:51:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:27:30 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int					ft_instruct(t_stack *a, t_stack *b);
 int					ft_stack_order(t_stack *a, t_stack *b);
 t_instr				*ft_count_instr(t_stack *a, t_stack *b,
 					t_instr *list, t_elem *tmp);
-t_instr				*ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare);
+void				ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare);
 int					ft_arrange_b(t_stack *a, t_stack *b);
 int					ft_finish_swap(t_stack *a, t_stack *b);
 
