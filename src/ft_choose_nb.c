@@ -6,11 +6,17 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/02 15:10:46 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/09 17:28:25 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:32:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** Calculate the ranking of a number, to give it the right number
+** of "ra" and "rra" necessary. It excludes the top 3 maximum of A
+** to avoid useless operations
+*/
 
 int		ft_ranking(t_stack *a, t_elem **tmp, int rank)
 {
@@ -25,6 +31,11 @@ int		ft_ranking(t_stack *a, t_elem **tmp, int rank)
 	return (rank);
 }
 
+/*
+** Good takes the values of compare since compare has "found" a number
+** that requires less operations to be moved at the right place
+*/
+
 void	ft_update_good(t_instr *good, t_instr *compare)
 {
 	good->ra = compare->ra;
@@ -35,6 +46,11 @@ void	ft_update_good(t_instr *good, t_instr *compare)
 	good->rrr = compare->rrr;
 	good->total = compare->total;
 }
+
+/*
+** Choose the number in A that requires the least operations to be put in B
+** Best options of operations stocked in t_instr good
+*/
 
 void	ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare)
 {
