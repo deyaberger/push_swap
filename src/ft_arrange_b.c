@@ -6,11 +6,16 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/09 17:12:49 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:22:03 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** First instructions necessary to start sorting numbers from A to B
+** At least 2 numbers are needed in B to be able to start the sorting
+*/
 
 void	ft_first_instruct(t_stack *a, t_stack *b)
 {
@@ -40,6 +45,10 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 	}
 }
 
+/*
+** Rotationate A and B, up or down, together or separated
+*/
+
 void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 {
 	int		mode;
@@ -63,6 +72,10 @@ void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
 		x--;
 	}
 }
+
+/*
+** Applies the best option of instructions stocked in t_instr to the pile A
+*/
 
 void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 {
@@ -90,6 +103,11 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 		ft_rotate_n(a, b, good->rrr, "rrr\n");
 	}
 }
+
+/*
+** Puts all the numbers of the pile A in the pile B in the good order
+** Except the 3 maximums of A that don't move out of the pile
+*/
 
 int		ft_arrange_b(t_stack *a, t_stack *b)
 {
