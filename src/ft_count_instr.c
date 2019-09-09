@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/26 19:21:40 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 17:51:01 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 17:55:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ t_elem	*ft_browse_stack(t_instr *list, t_elem *comp)
 	comp = comp->next;
 	return (comp);
 }
+
+/*
+** If the number is > to the top of the list B and < to the bottom of it,
+** it can be inserted directly, otherwise we go over all the pile until
+** we find a number inferior to nb. if the number is < to everything,
+** we can just insert it on top of the max of B
+*/
 
 int		ft_count_rb(t_stack *b, t_instr *list, int nb)
 {
@@ -45,6 +52,35 @@ int		ft_count_rb(t_stack *b, t_instr *list, int nb)
 	return (0);
 }
 
+/*
+** mode 1 is the merge of ra with rb, mode 2 is rra with rrb
+*/
+
+void	ft_best_total(t_instr *list, int mode)
+{
+	if (mode == 1)
+	{
+		list->rra = 0;
+		list->rrb = 0;
+		list->rr = list->ra <= list->rb ? list->ra : list->rb;
+		list->ra = list->ra <= list->rb ? 0 : list->ra - list->rr;
+		list->rb = list->ra == 0 ? list->rb - list->rr : 0;
+	}
+	if (mode == 2)
+	{
+		list->ra = 0;
+		list->rb = 0;
+		list->rrr = list->rra <= list->rrb ? list->rra : list->rrb;
+		list->rra = list->rra <= list->rrb ? 0 : list->rra - list->rrr;
+		list->rrb = list->rra == 0 ? list->rrb - list->rrr : 0;
+	}
+}
+
+/*
+** Calculate 4 totals, total1 is ra merged with rb, total2 is rra merged
+** with rrb, total3 is ra with rrb, total4 is rra with rb
+*/
+
 void	ft_count_rr_rrr(t_instr *list)
 {
 	int		total1;
@@ -57,22 +93,9 @@ void	ft_count_rr_rrr(t_instr *list)
 	total3 = list->ra + list->rrb;
 	total4 = list->rra + list->rb;
 	if (total1 <= total2 && total1 <= total3 && total1 <= total4)
-	{
-		list->rra = 0;
-		list->rrb = 0;
-		list->rr = list->ra <= list->rb ? list->ra : list->rb;
-		list->ra = list->ra <= list->rb ? 0 : list->ra - list->rr;
-		list->rb = list->ra == 0 ? list->rb - list->rr : 0;
-	}
+		ft_best_total(list, 1);
 	else if (total2 < total1 && total2 <= total3 && total2 <= total4)
-	{
-		list->ra = 0;
-		list->rb = 0;
-		list->rrr = list->rra <= list->rrb ? list->rra : list->rrb;
-		list->rra = list->rra <= list->rrb ? 0 : list->rra - list->rrr;
-		list->rrb = list->rra == 0 ? list->rrb - list->rrr : 0;
-
-	}
+		ft_best_total(list, 2);
 	else if (total3 < total1 && total3 < total2 && total3 <= total4)
 	{
 		list->rra = 0;
@@ -84,6 +107,11 @@ void	ft_count_rr_rrr(t_instr *list)
 		list->rrb = 0;
 	}
 }
+
+/*
+** First counts the number of ra, rra, rb and rrb, Then tries to merge it
+** in the best way possible thanks to the rr and rrr
+*/
 
 t_instr	*ft_count_instr(t_stack *a, t_stack *b, t_instr *list, t_elem *tmp)
 {
