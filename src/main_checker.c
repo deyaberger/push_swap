@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/05 14:27:04 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 15:31:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_stack		*ft_init_a(int argc, char **arg)
 	if (!(a = ft_create_stack()))
 		return (0);
 	i = argc - 1;
-	while (i >= 0)
+	while (i > 0)
 	{
 		ft_push(a, ft_atoi(arg[i]));
 		i--;
@@ -42,24 +42,14 @@ int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack *b;
-	char	 **arg;
-	int		i;
 
 	a = NULL;
 	b = NULL;
-	i = 0;
 	if (argc == 1)
-	{
+		return(1);
+	if (!ft_check_arg(argv))
 		write(2, "Error\n", 6);
-		return (0);
-	}
-	arg = ft_strsplit(argv[1], 32);
-	while(arg[i])
-		i++;
-	argc = i;
-	if (!ft_check_arg(arg))
-		write(2, "Error\n", 6);
-	else if (!(a = ft_init_a(argc, arg)))
+	else if (!(a = ft_init_a(argc, argv)))
 		write(2, "Error\n", 6);
 	else if (!(b = ft_create_stack()))
 		write(2, "Error\n", 6);
@@ -70,7 +60,12 @@ int			main(int argc, char **argv)
 	else
 		ft_printf("		{green}OK{eoc} \n\n");
 	ft_print_instr(a, b, "", 5);
-	if (a && b)
+	if (a || b)
 		ft_clean_stack(a, b);
 	return (0);
 }
+/*
+__attribute__((destructor)) void test()
+{
+	while (1);
+}*/

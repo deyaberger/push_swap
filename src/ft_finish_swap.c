@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 13:25:33 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 13:42:23 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,5 +174,6 @@ int			ft_finish_swap(t_stack *a, t_stack *b)
 		ft_push(a, ft_del_elem(b));
 		ft_print_instr(a, b, "pa\n", 2);
 	}
+	free(list);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 13:19:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/09 13:45:29 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_stack		*ft_init_a(int argc, char **arg)
 int			main(int argc, char **argv)
 {
 	t_stack *a;
-	t_stack *b;
+	t_stack	*b;
 
 	a = NULL;
 	b = NULL;
@@ -59,5 +59,14 @@ int			main(int argc, char **argv)
 	if (argc > 2)
 		ft_finish_swap(a, b);
 	ft_print_instr(a, b, "", 3);
+	free(b);
+	while (a->size > 0)
+		ft_del_elem(a);
+	free(a);
 	return (1);
 }
+/*
+__attribute__((destructor)) void test()
+{
+	while (1);
+}*/
