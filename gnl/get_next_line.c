@@ -6,11 +6,12 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/07 14:07:23 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/10 17:48:29 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "../includes/push_swap.h"
 
 char		*ft_after_line(char *x, char *tab)
 {
@@ -96,6 +97,7 @@ void		ft_del(t_list *link, t_list **begin)
 	else
 		prev->next = tmp->next;
 	free(((t_fd*)tmp->content)->tab);
+	free((t_fd*)tmp->content);
 	free(tmp);
 }
 
