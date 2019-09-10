@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:05:38 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/09 17:28:15 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/10 14:55:42 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,38 +46,10 @@ void	ft_first_instruct(t_stack *a, t_stack *b)
 }
 
 /*
-** Rotationate A and B, up or down, together or separated
-*/
-
-void	ft_rotate_n(t_stack *a, t_stack *b, int x, char *str)
-{
-	int		mode;
-	t_stack	*pile;
-
-	if (!ft_strcmp(str, "ra\n") || !ft_strcmp(str, "rb\n")
-			|| !ft_strcmp(str, "rr\n") || !ft_strcmp(str, "1"))
-		mode = 1;
-	else
-		mode = 2;
-	if (!ft_strcmp(str, "ra\n") || !ft_strcmp(str, "rra\n")
-		|| !ft_strcmp(str, "1") || !ft_strcmp(str, "2"))
-		pile = a;
-	else
-		pile = b;
-	while (x > 0)
-	{
-		ft_rotate(pile, mode);
-		if (ft_strcmp(str, "1") && ft_strcmp(str, "2"))
-			ft_print_instr(a, b, str, 2);
-		x--;
-	}
-}
-
-/*
 ** Applies the best option of instructions stocked in t_instr to the pile A
 */
 
-void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
+void	ft_send_instr(t_stack *a, t_stack *b, t_instr *good)
 {
 	int		i;
 	int		mode;
@@ -85,22 +57,22 @@ void	ft_do_instruct(t_stack *a, t_stack *b, t_instr *good)
 	i = 0;
 	mode = 0;
 	if (good->ra != 0)
-		ft_rotate_n(a, b, good->ra, "ra\n");
+		ft_do_instruct(a, b, "ra\n", good->ra);
 	if (good->rra != 0)
-		ft_rotate_n(a, b, good->rra, "rra\n");
+		ft_do_instruct(a, b, "rra\n", good->rra);
 	if (good->rb != 0)
-		ft_rotate_n(a, b, good->rb, "rb\n");
+		ft_do_instruct(a, b, "rb\n", good->rb);
 	if (good->rrb != 0)
-		ft_rotate_n(a, b, good->rrb, "rrb\n");
+		ft_do_instruct(a, b, "rrb\n", good->rrb);
 	if (good->rr != 0)
 	{
-		ft_rotate_n(a, b, good->rr, "1");
-		ft_rotate_n(a, b, good->rr, "rr\n");
+		ft_do_instruct(a, b, "1", good->rr);
+		ft_do_instruct(a, b, "rr\n", good->rr);
 	}
 	if (good->rrr != 0)
 	{
-		ft_rotate_n(a, b, good->rrr, "2");
-		ft_rotate_n(a, b, good->rrr, "rrr\n");
+		ft_do_instruct(a, b, "2", good->rrr);
+		ft_do_instruct(a, b, "rrr\n", good->rrr);
 	}
 }
 
@@ -122,7 +94,7 @@ int		ft_arrange_b(t_stack *a, t_stack *b)
 	while (a->size > 3)
 	{
 		ft_choose_nb(a, b, good, compare);
-		ft_do_instruct(a, b, good);
+		ft_send_instr(a, b, good);
 		ft_push(b, ft_del_elem(a));
 		ft_print_instr(a, b, "pb\n", 2);
 	}
