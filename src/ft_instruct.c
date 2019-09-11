@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/09 15:28:47 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 16:02:05 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,21 +78,45 @@ int		ft_read_rot(char *line, t_stack *a, t_stack *b)
 	return (1);
 }
 
+int		ft_check_line(char *line, t_stack *a, t_stack *b)
+{
+	if (line[0] != 's' && line[0] != 'p' && line[0] != 'r')
+	{
+		free(line);
+		return (0);
+	}
+	if (line[0] == 's' && !ft_read_swap(line, a, b))
+	{
+		free(line);
+		return (0);
+	}
+	if (line[0] == 'p' && !ft_read_push(line, a, b))
+	{
+		free(line);
+		return (0);
+	}
+	if (line[0] == 'r' && !ft_read_rot(line, a, b))
+	{
+		free(line);
+		return (0);
+	}
+	return (1);
+}
+
 int		ft_instruct(t_stack *a, t_stack *b)
 {
 	char	*line;
+	int		mode;
 
+	mode = SHOW;
 	while (get_next_line(0, &line) == 1)
 	{
-		if (line[0] != 's' && line[0] != 'p' && line[0] != 'r')
+		if (!ft_check_line(line, a, b))
 			return (0);
-		else if (line[0] == 's' && !ft_read_swap(line, a, b))
-			return (0);
-		else if (line[0] == 'p' && !ft_read_push(line, a, b))
-			return (0);
-		else if (line[0] == 'r' && !ft_read_rot(line, a, b))
-			return (0);
-		ft_print_instr(a, b, "", 5);
+		if (mode == 2)
+			ft_print_instr(a, b, line, 4);
+		if (mode == 1)
+			ft_print_instr(a, b, line, 5);
 		free(line);
 	}
 	return (1);
