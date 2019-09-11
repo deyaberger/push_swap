@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 17:28:03 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:40:45 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int			ft_error(void)
 	return (1);
 }
 
+void		ft_finish_main(t_stack *a, t_stack *b)
+{
+	ft_print_instr(a, b, "", 3);
+	if (!(ft_stack_order(a, b)))
+		ft_printf("		{red}KO{eoc} \n");
+	else
+		ft_printf("		{green}OK{eoc} \n");
+	ft_clean_stack(a, b);
+}
+
 int			main(int argc, char **argv)
 {
 	t_stack *a;
@@ -69,12 +79,7 @@ int			main(int argc, char **argv)
 			ft_clean_stack(a, b);
 			return (0);
 		}
-	ft_print_instr(a, b, "", 3);
-	if (!(ft_stack_order(a, b)))
-		ft_printf("		{red}KO{eoc} \n");
-	else
-		ft_printf("		{green}OK{eoc} \n");
-	ft_clean_stack(a, b);
+	ft_finish_main(a, b);
 	return (1);
 }
 
