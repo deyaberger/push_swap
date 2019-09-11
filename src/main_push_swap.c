@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 15:52:50 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:28:30 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void		ft_clean_stack(t_stack *a, t_stack *b)
 	free(b);
 }
 
-int		ft_error(void)
+int			ft_error(void)
 {
 	write(2, "Error\n", 6);
 	return (1);
@@ -68,7 +68,7 @@ int			main(int argc, char **argv)
 	if (argc > 3)
 		if (!(ft_arrange_b(a, b)))
 			if (ft_error())
-			{	
+			{
 				ft_clean_stack(a, b);
 				return (0);
 			}
@@ -80,7 +80,9 @@ int			main(int argc, char **argv)
 	return (1);
 }
 
-__attribute__((destructor)) void test()
-{
-	while (1);
-}
+/*
+** __attribute__((destructor)) void test()
+** {
+** 	while (1);
+** }
+*/

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 11:54:56 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/30 12:41:13 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:25:59 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,14 @@ t_elem		*ft_create_elem(int n)
 	new->next = NULL;
 	return (new);
 }
+
+/*
+** To add a new element to a stack, we first create it, gives a number
+** corresponding to it in "new->nb". Then we attached it (with new->next)
+** to the top of the stack we want to put it in, and finally
+** redirects the top of this stack (pile->first) to this new element.
+** We also check if it is one of the 3 maximums of the pile.
+*/
 
 void		ft_push(t_stack *pile, int n)
 {

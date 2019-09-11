@@ -6,11 +6,17 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/12 11:01:27 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/13 15:09:43 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:23:56 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** We compare every number to the first element and make sure that they are
+** all superior to it, then we move to the second element and do the same
+** comparision until we have done it for every link of the chain
+*/
 
 int		ft_stack_order(t_stack *a, t_stack *b)
 {

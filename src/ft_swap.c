@@ -6,11 +6,16 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/08 17:00:19 by dberger           #+#    #+#             */
-/*   Updated: 2019/08/13 15:09:53 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:25:33 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** This function simply inverts the value inside the first two elements of a
+** stack. No need for a change of pointers in this case.
+*/
 
 void	ft_swap(t_stack *pile)
 {

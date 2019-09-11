@@ -6,11 +6,18 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/10 14:45:19 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 12:12:33 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:13:19 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** This function is used in push_swap and checker, it receives a valid
+** instruction, included in the char *str, then applies it to one of the
+** functions created for rotation or swaping. For example, "ra" is a rotation
+** of the pile a towards the top. It calles the mode 1 of ft_rotate for a
+*/
 
 void		ft_do_instruct(t_stack *a, t_stack *b, char *str, int i)
 {

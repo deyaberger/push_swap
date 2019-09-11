@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:39:20 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/07 11:55:10 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:05:38 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int		ft_min_max(int neg, int j, char *argv)
 			return (0);
 	return (1);
 }
+
+/*
+** Checks if the arguments are only numbers, no twice the same,
+** Not bigger than an INT
+*/
 
 int		ft_check_arg(char **argv)
 {
