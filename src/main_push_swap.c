@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 17:28:30 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/11 17:36:37 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,35 @@ int			ft_error(void)
 	return (1);
 }
 
+void		ft_finish_main(t_stack *a, t_stack *b, int argc)
+{
+	int		mode;
+
+	mode = SHOW;
+	if (argc > 2)
+		ft_finish_swap(a, b);
+	if (mode == 3)
+		ft_print_instr(a, b, "", 3);
+	ft_clean_stack(a, b);
+}
+
 int			main(int argc, char **argv)
 {
 	t_stack *a;
 	t_stack	*b;
-	int		mode;
 
 	a = NULL;
 	b = NULL;
-	mode = SHOW;
 	if (argc == 1)
 		return (1);
 	if (!ft_check_arg(argv))
 		if (ft_error())
 			return (0);
 	a = ft_init_a(argc, argv);
-	b = ft_create_stack();
-	if (!a || !b)
+	if (!a || !(b = ft_create_stack()))
 		if (ft_error())
 			return (0);
-	if (mode == 3)
+	if (SHOW == 3)
 		ft_print_instr(a, b, "", 1);
 	if (argc > 3)
 		if (!(ft_arrange_b(a, b)))
@@ -72,11 +81,7 @@ int			main(int argc, char **argv)
 				ft_clean_stack(a, b);
 				return (0);
 			}
-	if (argc > 2)
-		ft_finish_swap(a, b);
-	if (mode == 3)
-		ft_print_instr(a, b, "", 3);
-	ft_clean_stack(a, b);
+	ft_finish_main(a, b, argc);
 	return (1);
 }
 
