@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 16:02:05 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:30:17 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int		ft_read_swap(char *line, t_stack *a, t_stack *b)
 {
-	if (!ft_strcmp(line, "sa"))
+	if (!ft_strcmp(line, "sa\n"))
 		ft_swap(a);
-	else if (!ft_strcmp(line, "sb"))
+	else if (!ft_strcmp(line, "sb\n"))
 		ft_swap(b);
-	else if (!ft_strcmp(line, "ss"))
+	else if (!ft_strcmp(line, "ss\n"))
 	{
 		ft_swap(a);
 		ft_swap(b);
@@ -32,7 +32,7 @@ int		ft_read_push(char *line, t_stack *a, t_stack *b)
 {
 	int		n;
 
-	if (!ft_strcmp(line, "pa"))
+	if (!ft_strcmp(line, "pa\n"))
 	{
 		if (b->first)
 		{
@@ -40,7 +40,7 @@ int		ft_read_push(char *line, t_stack *a, t_stack *b)
 			ft_push(a, n);
 		}
 	}
-	else if (!ft_strcmp(line, "pb"))
+	else if (!ft_strcmp(line, "pb\n"))
 	{
 		if (a->first)
 		{
@@ -55,20 +55,20 @@ int		ft_read_push(char *line, t_stack *a, t_stack *b)
 
 int		ft_read_rot(char *line, t_stack *a, t_stack *b)
 {
-	if (!ft_strcmp(line, "ra"))
+	if (!ft_strcmp(line, "ra\n"))
 		ft_rotate(a, 1);
-	else if (!ft_strcmp(line, "rb"))
+	else if (!ft_strcmp(line, "rb\n"))
 		ft_rotate(b, 1);
-	else if (!ft_strcmp(line, "rr"))
+	else if (!ft_strcmp(line, "rr\n"))
 	{
 		ft_rotate(a, 1);
 		ft_rotate(b, 1);
 	}
-	else if (!ft_strcmp(line, "rra"))
+	else if (!ft_strcmp(line, "rra\n"))
 		ft_rotate(a, 2);
-	else if (!ft_strcmp(line, "rrb"))
+	else if (!ft_strcmp(line, "rrb\n"))
 		ft_rotate(b, 2);
-	else if (!ft_strcmp(line, "rrr"))
+	else if (!ft_strcmp(line, "rrr\n"))
 	{
 		ft_rotate(a, 2);
 		ft_rotate(b, 2);

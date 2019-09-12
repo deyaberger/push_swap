@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 17:07:07 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/10 17:31:22 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/12 15:39:04 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** It is the only time when we use the "sa" operation
 */
 
-void		ft_arrange_a(t_stack *a, t_stack *b, t_instr *list, t_elem *elem)
+void		ft_arrange_a(t_stack *a, t_instr *list, t_elem *elem)
 {
 	list->sa = 0;
 	list->ra = 0;
@@ -146,8 +146,6 @@ void		ft_final_merge(t_instr *list, t_elem *elem, t_stack *b)
 int			ft_finish_swap(t_stack *a, t_stack *b)
 {
 	t_elem	*elem;
-	int		i;
-	int		mode;
 	t_instr	*list;
 
 	if (!(list = (t_instr *)malloc(sizeof(*list))))
@@ -159,7 +157,7 @@ int			ft_finish_swap(t_stack *a, t_stack *b)
 		return (0);
 	}
 	elem = a->first;
-	ft_arrange_a(a, b, list, elem);
+	ft_arrange_a(a, list, elem);
 	elem = ft_give_rank(b);
 	ft_final_merge(list, elem, b);
 	ft_finish_instr(a, b, list);

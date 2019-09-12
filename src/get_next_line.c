@@ -6,11 +6,10 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/10 17:48:29 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/12 18:35:00 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "../includes/push_swap.h"
 
 char		*ft_after_line(char *x, char *tab)
@@ -43,7 +42,7 @@ int			ft_content(t_list *link, int fd, char **line)
 		return (ret == 0 ? 0 : 1);
 	if (x)
 	{
-		*line = ft_strsub(gnl->tab, 0, (x - gnl->tab));
+		*line = ft_strsub(gnl->tab, 0, (x - gnl->tab + 1));
 		gnl->tab = ft_after_line(x, gnl->tab);
 		return (1);
 	}
