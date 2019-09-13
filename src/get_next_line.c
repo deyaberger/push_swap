@@ -6,117 +6,51 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/12 18:35:00 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/13 19:24:09 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-char		*ft_after_line(char *x, char *tab)
-{
-	char	*tmp;
-
-	if (!(tmp = ft_strdup(x + 1)))
-		return (NULL);
-	free(tab);
-	tab = tmp;
-	return (tab);
-}
-
-int			ft_content(t_list *link, int fd, char **line)
+int			ft_content(int fd, char **line)
 {
 	int		ret;
-	char	*x;
-	t_fd	*gnl;
-	char	buf[BUFF_SZ + 1];
+	int		i;
 
-	gnl = (t_fd*)link->content;
 	ret = 0;
-	while (!(x = ft_strchr(gnl->tab, '\n'))
-			&& (ret = read(fd, buf, BUFF_SZ)))
+	i = 0;
+	while ((ret = read(fd, *line + i, 1)))
 	{
-		buf[ret] = '\0';
-		gnl->tab = ft_strjoin_f(gnl->tab, buf, 1);
+		if ((*line)[i] == '\n')
+			return (1);
+		i++;
+		if (i > 3)
+			return (-1);
 	}
-	if (!(ft_strlen(gnl->tab)))
-		return (ret == 0 ? 0 : 1);
-	if (x)
-	{
-		*line = ft_strsub(gnl->tab, 0, (x - gnl->tab + 1));
-		gnl->tab = ft_after_line(x, gnl->tab);
-		return (1);
-	}
-	*line = gnl->tab;
-	gnl->tab = ft_strdup("");
-	return (ret == 0 && !gnl->tab ? 0 : 1);
+	if (ret == 0 && i == 0)
+		ft_memdel((void**)line);
+	return (0);
 }
 
-t_list		*ft_search_fd(int fd, t_list **begin)
+/*int			get_next_line(int fd, char **line)
 {
-	t_list	*new;
-	t_list	*link;
-	t_fd	gnl;
-
-	link = *begin;
-	while (link && fd != ((t_fd*)link->content)->fd)
-		link = link->next;
-	if (link)
-		return (link);
-	gnl.tab = ft_strdup("");
-	gnl.fd = fd;
-	if (!(new = ft_lstnew(&gnl, sizeof(t_fd))))
-		return (NULL);
-	if (!*begin)
-		*begin = new;
-	else
-	{
-		link = *begin;
-		*begin = new;
-		new->next = link;
-	}
-	return (new);
-}
-
-void		ft_del(t_list *link, t_list **begin)
-{
-	t_list	*tmp;
-	t_list	*prev;
-
-	prev = 0;
-	tmp = *begin;
-	while (tmp && tmp != link)
-	{
-		prev = tmp;
-		tmp = tmp->next;
-	}
-	if (!tmp)
-		return ;
-	if (!prev)
-		*begin = (*begin)->next;
-	else
-		prev->next = tmp->next;
-	free(((t_fd*)tmp->content)->tab);
-	free((t_fd*)tmp->content);
-	free(tmp);
-}
+	if (fd < 0 || !line)
+		return (-1);
+	if (!(*line = ft_memalloc(5)))
+		return (-1);
+	if (read(fd, NULL, 0) == -1)
+		return (-1);
+	return (ft_content(fd, line));
+}*/
 
 int			get_next_line(int fd, char **line)
 {
-	static t_list	*begin = NULL;
-	t_list			*link;
-	int				ret;
-	t_list			buf[0];
+	int r_v;
 
-	if (read(fd, buf, 0) == -1)
-		return (-1);
-	if (fd < 0 || BUFF_SZ <= 0 || !line)
-		return (-1);
-	if (!(link = ft_search_fd(fd, &begin)))
-		return (-1);
-	if (!(ret = ft_content(link, fd, line)))
-	{
-		ft_del(link, &begin);
-		return (0);
-	}
-	return (1);
+	r_v = -1;
+	if (fd >= 0 && line)
+		if ((*line = ft_memalloc(5)))
+			if (read(fd, NULL, 0) != -1)
+				r_v = ft_content(fd, line);
+	return (r_v);
 }
