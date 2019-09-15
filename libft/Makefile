@@ -6,9 +6,15 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/08 10:16:12 by dberger           #+#    #+#              #
-#    Updated: 2019/09/11 16:26:11 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/15 15:26:28 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
+NO_COLOR = \033[0m
+YELLOW = \033[33m
+GREEN = \033[32m
+BLUE = \033[36m
+PINK = \033[35m
 
 NAME = libft.a
 CC = gcc
@@ -80,24 +86,31 @@ ft_strjoin_f.c\
 ft_sqrt.c\
 ft_sizenb_l.c\
 ft_sizenb_u.c\
-ft_strlen_l.c\
+ft_strlen_l.c
 
-HEADERS = libft.h
-OBJECT = $(SOURCES:.c=.o)
+HEADER = libft.h
+OBJECTS = $(patsubst %.c,%.o,$(SOURCES))
 
 .PHONY: all clean fclean re
 
-$(NAME):
-	@$(CC) $(FLAGS) -c $(SOURCES)
-	@ar rc $(NAME) $(OBJECT)
-	@ranlib $(NAME)
-
 all: $(NAME)
 
+$(NAME): $(OBJECTS) Makefile $(HEADER)
+	@$(CC) $(FLAGS) -c $(SOURCES)
+	@ar rc $(NAME) $(OBJECTS)
+	@ranlib $(NAME)
+	@echo "$(PINK)	--- libft.a created ! ---	$(NO_COLOR)"
+
+
+%.o:src/%.c $(H_FILE)
+	$(CC) $(FLAGS) -o $@ -c $<
+
 clean:
-	@rm -rf $(OBJECT)
+	@rm -rf $(OBJECTS)
+	@echo "$(GREEN)	--- Objects deleted ! ---	$(NO_COLOR)"
 
 fclean: clean
 	@rm -rf $(NAME)
+	@echo "$(BLUE)	--- Objects and libft.a deleted ! ---	$(NO_COLOR)"
 
 re: fclean all
