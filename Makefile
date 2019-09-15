@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/12 17:15:27 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/15 13:30:33 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -64,11 +64,11 @@ $(LIB): FORCE
 	@$(MAKE) -C ft_printf
 
 $(PUSH_NAME): $(LIB) $(PUSH_OBJ)
-	@$(CC) -o $(PUSH_NAME) $(PUSH_OBJ) $(LIB)
+	@$(CC) $(FLAGS) -o $(PUSH_NAME) $(PUSH_OBJ) $(LIB)
 	@echo "$(YELLOW)	--- $(GREEN)Push_Swap$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
 $(CHECKER_NAME): $(LIB) $(CHECK_OBJ)
-	@$(CC) -o $(CHECKER_NAME) $(CHECK_OBJ) $(LIB)
+	@$(CC) $(FLAGS) -o $(CHECKER_NAME) $(CHECK_OBJ) $(LIB)
 	@echo "$(YELLOW)	--- $(GREEN)Checker$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
 $(DIR_OBJ)/%.o:src/%.c $(H_FILE)

@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:53:43 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/12 17:12:16 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 15:06:02 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 # include "../libft/libft.h"
 # include "../ft_printf/ft_printf.h"
 
-# define SHOW 0 
-# define BUFF_SZ 32
+# define SHOW 0
 
 typedef struct		s_elem
 {
@@ -49,14 +48,8 @@ typedef struct		s_instr
 	int				total;
 }					t_instr;
 
-typedef	struct		s_fd
-{
-	char			*tab;
-	int				fd;
-}					t_fd;
-
 int					ft_check_arg(char **argv);
-int					get_next_line(const int fd, char **line);
+int					get_next_line(int fd, char **line);
 t_stack				*ft_create_stack(void);
 void				ft_print_instr(t_stack *a, t_stack *b,
 					char *str, int color);
@@ -69,7 +62,8 @@ int					ft_stack_order(t_stack *a, t_stack *b);
 t_instr				*ft_count_instr(t_stack *a, t_stack *b,
 					t_instr *list, t_elem *tmp);
 void				ft_do_instruct(t_stack *a, t_stack *b, char *str, int i);
-void				ft_choose_nb(t_stack *a, t_stack *b, t_instr *good, t_instr *compare);
+void				ft_choose_nb(t_stack *a, t_stack *b, t_instr *good,
+					t_instr *compare);
 int					ft_arrange_b(t_stack *a, t_stack *b);
 int					ft_finish_swap(t_stack *a, t_stack *b);
 
