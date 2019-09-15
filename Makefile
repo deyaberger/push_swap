@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/15 13:30:33 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/15 15:13:19 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,11 +63,11 @@ $(LIB): FORCE
 	@$(MAKE) -C libft
 	@$(MAKE) -C ft_printf
 
-$(PUSH_NAME): $(LIB) $(PUSH_OBJ)
+$(PUSH_NAME): $(LIB) $(PUSH_OBJ) Makefile $(HFILE)
 	@$(CC) $(FLAGS) -o $(PUSH_NAME) $(PUSH_OBJ) $(LIB)
 	@echo "$(YELLOW)	--- $(GREEN)Push_Swap$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
-$(CHECKER_NAME): $(LIB) $(CHECK_OBJ)
+$(CHECKER_NAME): $(LIB) $(CHECK_OBJ) Makefile $(HFILE)
 	@$(CC) $(FLAGS) -o $(CHECKER_NAME) $(CHECK_OBJ) $(LIB)
 	@echo "$(YELLOW)	--- $(GREEN)Checker$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
