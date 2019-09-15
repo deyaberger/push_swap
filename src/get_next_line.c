@@ -6,11 +6,19 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/15 14:08:14 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:15:40 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** We read caracter per caracter, add then one by one directly in *line,
+** When we encounter a "\n" we get out of the function and analyzes it in
+** ft_instruct, if there is more than 4 caracters in the instruction, we know
+** it is an error and we return (-1). This "adapted gnl" helps us read an
+** instruction that would contain a "\0" for example.
+*/
 
 int			ft_content(int fd, char **line)
 {
