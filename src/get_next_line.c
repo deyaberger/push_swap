@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/23 14:47:44 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/13 19:24:09 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:08:14 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ int			ft_content(int fd, char **line)
 		ft_memdel((void**)line);
 	return (0);
 }
-
-/*int			get_next_line(int fd, char **line)
-{
-	if (fd < 0 || !line)
-		return (-1);
-	if (!(*line = ft_memalloc(5)))
-		return (-1);
-	if (read(fd, NULL, 0) == -1)
-		return (-1);
-	return (ft_content(fd, line));
-}*/
 
 int			get_next_line(int fd, char **line)
 {

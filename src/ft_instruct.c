@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/12 18:30:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:07:29 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,9 +107,10 @@ int		ft_instruct(t_stack *a, t_stack *b)
 {
 	char	*line;
 	int		mode;
+	int		ret;
 
 	mode = SHOW;
-	while (get_next_line(0, &line) == 1)
+	while ((ret = get_next_line(0, &line)) == 1)
 	{
 		if (!ft_check_line(line, a, b))
 			return (0);
@@ -119,5 +120,13 @@ int		ft_instruct(t_stack *a, t_stack *b)
 			ft_print_instr(a, b, line, 5);
 		free(line);
 	}
-	return (1);
+	if (ret == 0 && line)
+	{
+		if (!ft_check_line(line, a, b))
+			return (0);
+		free(line);
+	}
+	if (ret == -1)
+		free(line);
+	return (ret == -1 ? 0 : 1);
 }

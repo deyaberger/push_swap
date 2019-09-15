@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/07 11:39:20 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/12 14:47:12 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 13:52:37 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,8 @@ int		ft_check_arg(char **argv)
 	{
 		j = 0;
 		neg = 0;
-		if (argv[i][j] == '-' && (neg = -1) == -1 && argv[i][j + 1])
-			j++;
-		if (argv[i][j] == '+' && argv[i][j + 1])
+		if ((argv[i][j] == '-' && (neg = -1) == -1 && argv[i][j + 1])
+			|| (argv[i][j] == '+' && argv[i][j + 1]))
 			j++;
 		while (argv[i][j])
 		{
@@ -78,7 +77,5 @@ int		ft_check_arg(char **argv)
 			return (0);
 		i++;
 	}
-	if (!(ft_check_double(argv, i)))
-		return (0);
-	return (1);
+	return (!(ft_check_double(argv, i)) ? 0 : 1);
 }

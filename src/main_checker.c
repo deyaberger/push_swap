@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 17:40:45 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 13:46:44 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int			main(int argc, char **argv)
 
 	a = NULL;
 	b = NULL;
-	if (argc == 1)
+	if (argc == 1 || (argc == 2 && argv[1][0] == '\0'))
 		return (1);
 	if (!ft_check_arg(argv))
 		if (ft_error())
@@ -87,5 +87,5 @@ int			main(int argc, char **argv)
 ** __attribute__((destructor)) void test()
 ** {
 **	while (1);
-** }
+**  }
 */
