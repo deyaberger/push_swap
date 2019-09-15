@@ -6,11 +6,18 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 18:20:12 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 17:08:17 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:29:06 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+/*
+** Color 1 and 3 will be used by checker and push swap to print stacks at the
+** beginning andd at the end of the process. Then 2 will be used by push_swap
+** to print the stacks after each instruction chosen. Same for checker, with
+** the number 5.
+*/
 
 void		ft_stack_a(t_stack *a, t_elem *elem, int mode, int color)
 {
@@ -65,6 +72,18 @@ void		ft_stack_b(t_stack *b, t_elem *elem, int mode, int color)
 	if ((mode == 2 && color == 4) || mode == 3)
 		ft_printf("\n");
 }
+
+/*
+** This function is completly optional. I have created 4 modes, that we can
+** choose while changing the value of "SHOW" in push_swap.h
+** if SHOW == 0, we don't print anything in checker, and in push_swap we only
+** print the instructions. If SHOW == 1, checker is going to print the value of
+** the stacks before and after reading instructions. If SHOW == 2, checker shows
+** the value of the stacks before, during, and after reading instructions.
+** Finally if SHOW == 3, it is used only when we run push_swap alone: if shows
+** the value of the stacks at every steps and it is useful when I have to change
+** something in my functions and I want to test if it works correctly.
+*/
 
 void		ft_print_instr(t_stack *a, t_stack *b, char *str, int color)
 {

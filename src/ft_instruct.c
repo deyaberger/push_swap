@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/09 12:14:47 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/15 14:07:29 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:21:27 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,13 @@ int		ft_check_line(char *line, t_stack *a, t_stack *b)
 	}
 	return (1);
 }
+
+/*
+** If the command sent to this function in "line" doesn't start with the letter
+** r, s, or p we directly know it is wrong. Once we have read all the line
+** and make sure that it is a valid instruction (followed by a "\n"),
+** we apply the instruction to the stack concerned.
+*/
 
 int		ft_instruct(t_stack *a, t_stack *b)
 {

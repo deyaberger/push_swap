@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/04 14:33:37 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/11 17:36:37 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:36:24 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,15 @@ void		ft_finish_main(t_stack *a, t_stack *b, int argc)
 		ft_print_instr(a, b, "", 3);
 	ft_clean_stack(a, b);
 }
+
+/*
+** Just like in the main of checker, we check if the arguments are correct,
+** then we create two stacks: B will be empty and A will contain the numbers
+** listed as arguments. 
+** In ft_arrange, we will choose what instruction should be sent to the standard
+** entry, and change the stack accordingly to it. Once everything is arranged,
+** we want to make sure everything we have created has been freed correctly.
+*/
 
 int			main(int argc, char **argv)
 {

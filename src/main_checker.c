@@ -6,7 +6,7 @@
 /*   By: dberger <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/03 15:19:48 by dberger           #+#    #+#             */
-/*   Updated: 2019/09/15 13:46:44 by dberger          ###   ########.fr       */
+/*   Updated: 2019/09/15 14:32:32 by dberger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,15 @@ void		ft_finish_main(t_stack *a, t_stack *b)
 		ft_printf("		{green}OK{eoc} \n");
 	ft_clean_stack(a, b);
 }
+
+/*
+** In Checker, we first check if the arguments are correct.
+** Then we create a stack "A" and put all those numbers in it
+** in each link of the chained list). We also create an empty stack "B".
+** Then we start reading those instructions and apply it to the stacks we have.
+** Finally when the lecture is finished, we check if "A" is in the good order
+** and if "B" is empty.
+*/
 
 int			main(int argc, char **argv)
 {
