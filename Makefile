@@ -6,7 +6,7 @@
 #    By: dberger <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/04 12:00:30 by dberger           #+#    #+#              #
-#    Updated: 2019/09/15 15:13:19 by dberger          ###   ########.fr        #
+#    Updated: 2019/09/15 16:19:40 by dberger          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,8 +71,8 @@ $(CHECKER_NAME): $(LIB) $(CHECK_OBJ) Makefile $(HFILE)
 	@$(CC) $(FLAGS) -o $(CHECKER_NAME) $(CHECK_OBJ) $(LIB)
 	@echo "$(YELLOW)	--- $(GREEN)Checker$(YELLOW) Compiled ! ---	$(NO_COLOR)"
 
-$(DIR_OBJ)/%.o:src/%.c $(H_FILE)
-	$(CC) $(FLAGS) -o $@ -c $<
+$(DIR_OBJ)/%.o:src/%.c $(HFILE)
+	@$(CC) $(FLAGS) -o $@ -c $<
 
 clean:
 	@(cd $(LIB_DIR) && $(MAKE) $@)
