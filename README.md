@@ -77,3 +77,4 @@ $>ARG="4 67 3 87 23"; ./push_swap $ARG | ./checker $ARG
 OK
 $>
 ```
+Obtained mark for this project : 112/100
